@@ -1,0 +1,86 @@
+﻿@{
+    ViewBag.Title = "作业日报管理";
+}
+
+@section css {
+    <link rel="stylesheet" href="~/css/Home.css" />
+    <environment names="Development">
+        <link rel="stylesheet" href="~/libs/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css" />
+    </environment>
+    <environment names="Staging,Production">
+        <link rel="stylesheet" href="~/libs/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
+    </environment>
+}
+
+@section js {
+    <environment names="Development">
+        <!-- ie shim -->
+        <script src="~/libs/es6-shim/es6-shim.min.js"></script>
+        <script src="~/libs/systemjs/dist/system-polyfills.src.js"></script>
+        <script src="~/libs/angular2/es6/dev/src/testing/shims_for_IE.js"></script>
+        <!-- angular2 -->
+        <script src="~/libs/angular2/bundles/angular2-polyfills.js"></script>
+        <script src="~/libs/systemjs/dist/system.src.js"></script>
+        <script src="~/libs/rxjs/bundles/Rx.js"></script>
+        <script src="~/libs/angular2/bundles/angular2.dev.js"></script>
+        <script src="~/libs/angular2/bundles/http.dev.js"></script>
+        <script src="~/libs/angular2/bundles/router.dev.js"></script>
+        <!-- datetimepicker -->
+        <script src="~/libs/moment/moment.js"></script>
+        <script src="~/libs/moment/locale/zh-cn.js"></script>
+        <script src="~/libs/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+        <script>
+            System.config({
+                packages: {
+                    app: {
+                        format: 'register',
+                        defaultExtensin: 'js'
+                    }
+                },
+                map: {
+                    moment: 'libs/moment/moment.js'
+                }
+            });
+            System.import('app/main')
+                .then(null, console.error.bind(console));
+        </script>
+    </environment>
+    <environment names="Staging,Production">
+        <!-- ie shim -->
+        <script src="~/libs/es6-shim/es6-shim.min.js"></script>
+        <script src="~/libs/systemjs/dist/system-polyfills.js"></script>
+        <script src="~/libs/angular2/es6/prod/src/testing/shims_for_IE.js"></script>
+        <!-- angular2 -->
+        <script src="~/libs/angular2/bundles/angular2-polyfills.min.js"></script>
+        <script src="~/libs/systemjs/dist/system.js"></script>
+        <script src="~/libs/rxjs/bundles/Rx.js"></script>
+        <script src="~/libs/angular2/bundles/angular2.js"></script>
+        <script src="~/libs/angular2/bundles/http.min.js"></script>
+        <script src="~/libs/angular2/bundles/router.js"></script>
+        <!-- datetimepicker -->
+        <script src="~/libs/moment/min/moment.min.js"></script>
+        <script src="~/libs/moment/locale/zh-cn.js"></script>
+        <script src="~/libs/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+        <script>
+            System.config({
+                packages: {
+                    app: {
+                        format: 'register',
+                        defaultExtensin: 'js'
+                    }
+                },
+                map: {
+                    moment: 'libs/moment/min/moment.min.js'
+                }
+            });
+            System.import('app/main')
+                .then(null, console.error.bind(console));
+        </script>
+    </environment>
+}
+<cache vary-by="@Context.Request.Path">
+    
+</cache>
+<my-app>
+    <div id="loading">加载中...</div>
+</my-app>

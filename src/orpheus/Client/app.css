@@ -1,0 +1,132 @@
+﻿#wrapper {
+    padding-left: 0;
+    font-family: Arial, Microsoft YaHei;
+    transition: all .3s cubic-bezier(.35,0,.25,1);
+}
+
+nav {
+    z-index: 1002;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    /*margin-left: -250px;*/
+    overflow: hidden;
+    color: #FFFFFF;
+    background-color: #333333;
+    transition: all .3s cubic-bezier(.35,0,.25,1);
+    box-shadow: 0 2px 4px -1px rgba(0,0,0,.2),0 4px 5px 0 rgba(0,0,0,.14),0 1px 10px 0 rgba(0,0,0,.12);
+}
+
+#nav-wrapper {
+    width: 230px;
+}
+
+#logo {
+    padding: 0 15px;
+    margin-bottom: 50px;
+    text-align: center;
+    font-size: 28px;
+}
+
+#logo img {
+    width: 100%;
+}
+
+nav ul {
+    padding: 0 0;
+    list-style-type: none;
+    text-align: left;
+    font-size: 18px;
+}
+
+nav ul a {
+    display: block;
+    text-decoration: none;
+    padding: 0.7em 0 0.7em 40px;
+    margin: 0.3em 0;
+    outline: 0;
+    /*transition: all 0.3s ease;*/
+    transition: all .3s cubic-bezier(.35,0,.25,1);
+    color: #CCCCCC;
+}
+
+nav ul a .glyphicon {
+    padding-right: 2em;
+}
+
+nav ul a:hover {
+    color: white;
+    /*text-shadow: white 0 0 20px,white 1px 2px 25px;*/
+    /*background-color: #D94130;*/
+    /*background: linear-gradient(#D94130, #BF382A);*/
+}
+
+nav ul .router-link-active {
+    color: white;
+    background: linear-gradient(#E05B4C, #ED6B5C);
+    /*background-color: #E85646;*/
+}
+
+#mask {
+    position: fixed;
+    z-index: 1001;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: #333;
+    opacity: .48;
+}
+
+.nav-show {
+    width: 230px;
+    overflow-x:hidden;
+    overflow-y: auto;
+}
+
+.mask-hide {
+    display: none;
+}
+
+/*page*/
+
+#page-content {
+    margin: 0;
+    color: #4C4C4C;
+}
+
+.header {
+    margin-bottom: 40px;
+    padding: 18px 0;
+    color: #FFFFFF;
+    background: linear-gradient(#E05B4C, #ED6B5C);
+    border-bottom: 12px solid #C75A4E;
+}
+
+.header .title-icon {
+    padding-right: 0.8em;
+    /*vertical-align: bottom;*/
+}
+
+button.menu {
+    background-color: transparent;
+    border: none;
+    text-align: center;
+    padding: 0;
+}
+
+@media(min-width: 998px) {
+    #wrapper {
+        padding-left: 230px;
+    }
+    nav {
+        width: 230px;
+        overflow-x:hidden;
+        overflow-y: auto;
+    }
+    button.menu {
+        display: none;
+    }
+}

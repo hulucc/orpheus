@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewBag.Title</title>
+    <base href="/" />
+    <environment names="Development">
+        <link rel="stylesheet" href="~/libs/bootstrap/dist/css/bootstrap.css" />
+    </environment>
+    <environment names="Staging, Production">
+        <link rel="stylesheet" href="~/libs/bootstrap/dist/css/bootstrap.min.css" />
+    </environment>
+    @RenderSection("css", false)
+</head>
+<body>
+    @RenderBody()
+    <environment names="Development">
+        <!-- common -->
+        <script src="~/libs/jquery/dist/jquery.js"></script>
+        <script src="~/libs/bootstrap/dist/js/bootstrap.js"></script>
+    </environment>
+    <environment names="Staging, Production">
+        <!-- common -->
+        <script src="~/libs/jquery/dist/jquery.min.js"></script>
+        <script src="~/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+    </environment>
+    @RenderSection("js", false)
+</body>
+</html>

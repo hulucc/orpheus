@@ -1,0 +1,30 @@
+body {
+    overflow-x: hidden;
+    font-family: Arial, Microsoft YaHei;
+}
+
+#loading {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    font-size: 24px;
+}
+
+.popover {
+    font-family: Arial, Microsoft YaHei;
+    color: #555;
+}
+
+.popover .arrow {
+    display: none;
+}
+
+.popover-title {
+    background-color: #E86254;
+    color: white;
+}
+
+.popover .glyphicon {
+    margin-right: 1em;
+}
