@@ -8,4 +8,15 @@ import { DailyInfo, PlanInfo } from '../models/dailyinfo'
 })
 export class PlanTableComponent {
     @Input() dailyInfoes: DailyInfo[];
+
+    //private
+    private formatSLotUncomp(sLotUncomp, append) {
+        if(append == 0) {
+            return sLotUncomp;
+        } else if (append > 0) {
+            return sLotUncomp + ' + ' + append;
+        } else if (append < 0) {
+            return sLotUncomp + ' - ' + Math.abs(append);
+        }
+    }
 }

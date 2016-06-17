@@ -1,4 +1,4 @@
-namespace orpheus.Models
+namespace orpheus.Core
 {
     using System;
     using System.Collections.Generic;
@@ -43,11 +43,10 @@ namespace orpheus.Models
 
         public decimal LotCompAfter { get; set; }
 
-        [StringLength(30)]
-        public string Joc { get; set; }
+        public decimal Append { get; set; }
 
         [StringLength(30)]
-        public string Part { get; set; }
+        public string Joc { get; set; }
 
         [StringLength(30)]
         public string CleanCount { get; set; }

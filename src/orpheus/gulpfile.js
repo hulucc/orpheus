@@ -28,6 +28,8 @@ var libs_dev = [
     'moment/locale/zh-cn.js',
     'eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css',
     'eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js',
+    'bootstrap-multiselect/dist/css/bootstrap-multiselect.css',
+    'bootstrap-multiselect/dist/js/bootstrap-multiselect.js',
 ].map(function (p) { return 'node_modules/' + p; });
 
 var libs_prod = [
@@ -47,6 +49,8 @@ var libs_prod = [
     'moment/locale/zh-cn.js',
     'eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css',
     'eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js',
+    'bootstrap-multiselect/dist/css/bootstrap-multiselect.css',
+    'bootstrap-multiselect/dist/js/bootstrap-multiselect.js',
 ].map(function (p) { return 'node_modules/' + p; });
 
 

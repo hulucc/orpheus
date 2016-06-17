@@ -3,6 +3,7 @@ import { Http, URLSearchParams, Response } from 'angular2/http';
 import 'rxjs/Rx'; //Add all operators to Observable
 import { Observable } from 'rxjs/Observable';
 import { DailyInfo, Dict } from '../models/dailyinfo';
+import { Statistic, StatisticMode } from '../models/statistic'
 import moment from 'moment';
 
 @Injectable()
@@ -43,6 +44,18 @@ export class DailyInfoService {
     getDicts(): Observable<Dict[]> {
         return this.http.get('/api/dailyinfo/dict')
         .map(r => <Dict[]>r.json())
+        //.do(d => console.log(d))
+        .catch(this.onError);
+    }
+
+    getStatistics(mode: StatisticMode, date: moment.Moment, lines: string[]): Observable<Statistic[]> {
+        let params = new URLSearchParams();
+        params.set('type', mode);
+        params.set('date', date.format('YYYY/MM/DD'));
+        params.set('lines', lines.join(','));
+        let option = { search: params };
+        return this.http.get('/api/dailyinfo/statistic', option)
+        .map(r => <Statistic[]>r.json())
         //.do(d => console.log(d))
         .catch(this.onError);
     }

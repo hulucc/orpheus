@@ -1,0 +1,10 @@
+﻿:host {
+}
+
+.table-responsive {
+    max-height: 600px;
+}
+
+table {
+    white-space: nowrap;
+}

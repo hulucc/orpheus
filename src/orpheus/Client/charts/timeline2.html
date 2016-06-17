@@ -2,7 +2,7 @@
     <div class="left">
         <div class="title-pad cell">&nbsp;</div>
         <div class="hours-pad cell">&nbsp;</div>
-        <div class="row-header cell" *ngFor="#s of states">{{s}}</div>
+        <div class="row-header cell" *ngFor="let s of states">{{s}}</div>
     </div>
     <div class="right">
         <div class="right-inner">
@@ -10,12 +10,12 @@
                 {{daily.date.format("MM月DD日")}} {{daily.pspShiftDict.shift}}班<span class="small">确认：{{daily.confirming}}</span>
             </div>
             <div class="hours">
-                <div class="hour cell" *ngFor="#hour of getHours(daily)">{{hour}}</div>
+                <div class="hour cell" *ngFor="let hour of getHours(daily)">{{hour}}</div>
             </div>
-            <div class="grid-row cell" *ngFor="#s of states; #index=index">
+            <div class="grid-row cell" *ngFor="let s of states; let index=index">
                 &nbsp;
                 <div class="item"
-                     *ngFor="#item of filterState(daily.pspTimeLines, index)"
+                     *ngFor="let item of filterState(daily.pspTimeLines, index)"
                      [style.left.%]="getItemRect(item, daily).left"
                      [style.width.%]="getItemRect(item, daily).width"
                      [ngClass]="'item'+index"

@@ -12,6 +12,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "orpheus", "src\orpheus\orpheus.xproj", "{C9CE8FFB-51E7-40F6-A077-662B97BA9F45}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{D0E9ABC1-9131-4A72-ACCB-33373ACE20DC}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "orpheus.Tests", "test\orpheus.Tests\orpheus.Tests.xproj", "{650A5A85-5956-491E-9312-5E25A27D1108}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -22,11 +26,16 @@ Global
 		{C9CE8FFB-51E7-40F6-A077-662B97BA9F45}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C9CE8FFB-51E7-40F6-A077-662B97BA9F45}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C9CE8FFB-51E7-40F6-A077-662B97BA9F45}.Release|Any CPU.Build.0 = Release|Any CPU
+		{650A5A85-5956-491E-9312-5E25A27D1108}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{650A5A85-5956-491E-9312-5E25A27D1108}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{650A5A85-5956-491E-9312-5E25A27D1108}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{650A5A85-5956-491E-9312-5E25A27D1108}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{C9CE8FFB-51E7-40F6-A077-662B97BA9F45} = {760EC81D-070D-46E1-AA06-987951520BD8}
+		{650A5A85-5956-491E-9312-5E25A27D1108} = {D0E9ABC1-9131-4A72-ACCB-33373ACE20DC}
 	EndGlobalSection
 EndGlobal

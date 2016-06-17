@@ -46,7 +46,7 @@ nav ul a {
     text-decoration: none;
     padding: 0.7em 0 0.7em 40px;
     margin: 0.3em 0;
-    outline: 0;
+    /*outline: 0;*/
     /*transition: all 0.3s ease;*/
     transition: all .3s cubic-bezier(.35,0,.25,1);
     color: #CCCCCC;
@@ -84,6 +84,7 @@ nav ul .router-link-active {
     width: 230px;
     overflow-x:hidden;
     overflow-y: auto;
+    background: rgba(33, 33, 33, 0.7);
 }
 
 .mask-hide {

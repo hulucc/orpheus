@@ -2,18 +2,18 @@
     <form class="col-xs-12" (ngSubmit)="onSubmit()" #searchForm="ngForm">
         <div class="form-group">
             <label>线体</label>
-            <select class="form-control"
-                    ngControl="line"
-                    required
-                    [(ngModel)]="line"
-                    (change)="line=$event.target.value">
-                <option *ngFor="#l of lines" [value]="l">{{l}}</option>
+            <select id="select1" class="form-control" multiple="multiple">
+                <optgroup label="实装">
+                    <option *ngFor="let l of lineGroup1" [value]="l">{{l}}</option>
+                </optgroup>
+                <optgroup label="车载">
+                    <option *ngFor="let l of lineGroup2" [value]="l">{{l}}</option>
+                </optgroup>
             </select>
-
         </div>
         <div class="form-group">
             <label class="control-label" for="">作业日</label>
-            <div class='input-group date' id='datetimepicker1'>
+            <div class='input-group' id='datetimepicker1'>
                 <input type='text'
                        class="form-control"
                        ngControl="date"
@@ -25,21 +25,42 @@
                 </span>
             </div>
         </div>
-        <button type="submit" class="btn btn-default pull-right" data-loading-text="查询中..." [disabled]="!searchForm.valid">提交</button>
+        <div class="form-group">
+            <label class="control-label" for="">显示</label>
+            <br />
+            <label class="checkbox-inline">
+                <input type="checkbox" [(ngModel)]="showPlan" /> 计划
+            </label>
+            <label class="checkbox-inline">
+                <input type="checkbox" [(ngModel)]="showTimeLine" /> 时间轴
+            </label>
+        </div>
+        <button type="submit"
+                class="btn btn-default pull-right"
+                data-loading-text="查询中..."
+                [disabled]="!searchForm.valid||!selectedLines.length">
+            提交
+        </button>
     </form>
 </div>
 
 <div class="page-container" *ngIf="showResult">
     <div class="alert alert-danger" role="alert" *ngIf="errMsg">{{errMsg}}</div>
-    <div class="alert alert-info" role="alert" *ngIf="!dailyInfoes.length&&!errMsg">所查询的作业日报不存在</div>
-    <div class="view-result" *ngIf="dailyInfoes.length">
-        <div class="page-header">
-            <h3>计划 <small>{{dailyInfoes[0].line}}号线</small></h3>
+    <div class="view-result" *ngFor="let l of resultLines">
+        <div class="alert alert-info" role="alert" *ngIf="!(dailyInfoes[l]?.length)&&!errMsg">所查询的{{l}}号线作业日报不存在</div>
+        <div *ngIf="dailyInfoes[l]?.length">
+            <div *ngIf="resultShowPlan">
+                <div class="page-header">
+                    <h3>计划 <small>{{l}}号线</small></h3>
+                </div>
+                <plan-table [dailyInfoes]="dailyInfoes[l]"></plan-table>
+            </div>
+            <div *ngIf="resultShowTimeLine">
+                <div class="page-header">
+                    <h3>时间轴 <small>{{l}}号线</small></h3>
+                </div>
+                <timeline2-chart *ngFor="let shift of dailyInfoes[l]" [daily]="shift" [states]="states"></timeline2-chart>
+            </div>
         </div>
-        <plan-table [dailyInfoes]="dailyInfoes"></plan-table>
-        <div class="page-header">
-            <h3>时间轴</h3>
-        </div>
-        <timeline2-chart *ngFor="#daily of dailyInfoes" [daily]="daily" [states]="states"></timeline2-chart>
     </div>
 </div>

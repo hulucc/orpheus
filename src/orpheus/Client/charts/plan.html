@@ -14,13 +14,12 @@
                 <th>实绩数</th>
                 <th>当日累计</th>
                 <th>偿却</th>
-                <th>部品</th>
                 <th>擦除枚数</th>
                 <th>备注</th>
             </tr>
         </thead>
-        <tbody *ngFor="#daily of dailyInfoes">
-            <tr *ngFor="#plan of daily.pspPlanInfoes; #first=first">
+        <tbody *ngFor="let daily of dailyInfoes">
+            <tr *ngFor="let plan of daily.pspPlanInfoes; let first=first">
                 <td [attr.rowspan]="daily.pspPlanInfoes.length" *ngIf="first">{{daily.pspShiftDict.shift}}</td>
                 <td [attr.rowspan]="daily.pspPlanInfoes.length" *ngIf="first">{{daily.pspShiftGroupDict.shiftGroup}}</td>
                 <td>{{plan.kishname}}</td>
@@ -28,12 +27,11 @@
                 <td>{{plan.lot}}</td>
                 <td>{{plan.sLot}}</td>
                 <td>{{plan.koutei}}</td>
-                <td>{{plan.sLotUncomp}}</td>
+                <td>{{formatSLotUncomp(plan.sLotUncomp, plan.append)}}</td>
                 <td>{{plan.lotComp}}</td>
                 <td>{{plan.shiftComp}}</td>
                 <td>{{plan.lotCompAfter}}</td>
                 <td>{{plan.joc}}</td>
-                <td>{{plan.part}}</td>
                 <td>{{plan.cleanCount}}</td>
                 <td>{{plan.remark}}</td>
             </tr>

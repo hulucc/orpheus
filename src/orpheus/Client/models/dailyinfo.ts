@@ -12,8 +12,8 @@ export interface PlanInfo {
     lotComp: number;
     shiftComp: number;
     lotCompAfter: number;
+    append: number;
     joc: string;
-    part: string;
     cleanCount: string;
     remark: string;
 }

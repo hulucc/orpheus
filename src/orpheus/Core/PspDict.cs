@@ -1,4 +1,4 @@
-namespace orpheus.Models
+namespace orpheus.Core
 {
     using System;
     using System.Collections.Generic;

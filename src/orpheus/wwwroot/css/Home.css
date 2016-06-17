@@ -11,11 +11,26 @@ body {
     font-size: 24px;
 }
 
+button, input, a {
+    outline: none!important;
+}
+
+/* multi select */
+.btn-group button {
+    text-align: left;
+}
+.btn-group .caret {
+    display: none;
+}
+.btn-group .dropdown-menu {
+    width: 100%;
+}
+
+/* timeline popover */
 .popover {
     font-family: Arial, Microsoft YaHei;
     color: #555;
 }
-
 .popover .arrow {
     display: none;
 }
@@ -24,7 +39,6 @@ body {
     background-color: #E86254;
     color: white;
 }
-
 .popover .glyphicon {
     margin-right: 1em;
 }

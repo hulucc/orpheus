@@ -37,7 +37,7 @@ System.register(['angular2/core', 'angular2/router', './test.service'], function
                 TestComponent = __decorate([
                     core_1.Component({
                         selector: 'my-test',
-                        template: "\n      <h2>Test, id:{{id}}</h2>\n      <p *ngFor=\"#testModel of testModels\">\n          {{testModel.name}}, {{testModel.isOk}}, {{testModel.count}}, {{testModel.startTime}}\n      </p>\n    ",
+                        template: "\n      <h2>Test, id:{{id}}</h2>\n      <p *ngFor=\"let testModel of testModels\">\n          {{testModel.name}}, {{testModel.isOk}}, {{testModel.count}}, {{testModel.startTime}}\n      </p>\n    ",
                         providers: [test_service_1.TestService]
                     }), 
                     __metadata('design:paramtypes', [router_1.RouteParams, test_service_1.TestService])

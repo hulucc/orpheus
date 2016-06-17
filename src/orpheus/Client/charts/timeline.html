@@ -2,23 +2,23 @@
     <div class="left">
         <div class="title-pad cell">&nbsp;</div>
         <div class="hours-pad cell">&nbsp;</div>
-        <div class="row-header cell" *ngFor="#s of states">{{s}}</div>
+        <div class="row-header cell" *ngFor="let s of states">{{s}}</div>
     </div>
     <div class="right-wrapper">
         <div class="right tl-row" [style.width.px]="getRightWidth()">
-            <div class="col-group" *ngFor="#daily of dailyInfoes;#even=even" [class.col-group-even]="!even">
+            <div class="col-group" *ngFor="let daily of dailyInfoes; let even=even" [class.col-group-even]="!even">
                 <div class="title cell">
                     {{daily.date.format("MM月DD日")}} {{daily.pspShiftDict.shift}}班<span class="small">确认：{{daily.confirming}}</span>
                 </div>
                 <div class="hours tl-row">
-                    <div class="cell" *ngFor="#hour of getHours(daily)">
+                    <div class="cell" *ngFor="let hour of getHours(daily)">
                         {{hour}}
                     </div>
                 </div>
-                <div class="grid-row cell" *ngFor="#s of states; #sIndex=index">
+                <div class="grid-row cell" *ngFor="let s of states; let sIndex=index">
                     &nbsp;
                     <div class="item"
-                         *ngFor="#item of filterState(daily.pspTimeLines, sIndex)"
+                         *ngFor="let item of filterState(daily.pspTimeLines, sIndex)"
                          [style.left.px]="getItemRect(item, daily).left"
                          [style.width.px]="getItemRect(item, daily).width"
                          [ngClass]="'item'+sIndex"

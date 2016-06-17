@@ -1,18 +1,18 @@
-namespace orpheus
+namespace orpheus.Infrastructure
 {
     using System;
     using System.Data.Entity;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
-    using orpheus.Models;
     using Microsoft.Extensions.Configuration;
     using System.Data.Entity.Infrastructure.Interception;
     using System.Data.Common;
-
+    using System.Data.SqlClient;
+    using Core;
     public partial class PersephoneDB : DbContext
     {
-        public PersephoneDB(IConfiguration config)
-            : base(config["Data:CMS:ConnectionString"])
+        public PersephoneDB(string connStr)
+            : base(new SqlConnection(connStr), true)
         {
         }
 
@@ -136,11 +136,11 @@ namespace orpheus
                 .HasPrecision(20, 0);
 
             modelBuilder.Entity<PspPlanInfo>()
-                .Property(e => e.Joc)
-                .IsUnicode(false);
+                .Property(e => e.Append)
+                .HasPrecision(20, 0);
 
             modelBuilder.Entity<PspPlanInfo>()
-                .Property(e => e.Part)
+                .Property(e => e.Joc)
                 .IsUnicode(false);
 
             modelBuilder.Entity<PspPlanInfo>()

@@ -7,10 +7,6 @@ select::-ms-expand {
     display: none;
 }
 
-button {
-    outline: none!important;
-}
-
 .page-container {
     margin: 0 auto;
     padding: 0 30px;

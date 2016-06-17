@@ -1,4 +1,4 @@
-namespace orpheus.Models
+namespace orpheus.Core
 {
     using System;
     using System.Collections.Generic;
@@ -10,21 +10,16 @@ namespace orpheus.Models
     public partial class PspTimeLine
     {
         [Key]
-        [Column(Order = 0)]
+        public decimal Recid { get; set; }
+
         [StringLength(30)]
         public string Line { get; set; }
 
-        [Key]
-        [Column(Order = 1)]
         public decimal State { get; set; }
 
-        [Key]
-        [Column(Order = 2)]
         [StringLength(19)]
         public string StartTime { get; set; }
 
-        [Key]
-        [Column(Order = 3)]
         [StringLength(19)]
         public string EndTime { get; set; }
 

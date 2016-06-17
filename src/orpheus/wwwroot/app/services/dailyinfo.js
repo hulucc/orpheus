@@ -65,6 +65,16 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Rx', 'rxjs/Observable',
                         .map(function (r) { return r.json(); })
                         .catch(this.onError);
                 };
+                DailyInfoService.prototype.getStatistics = function (mode, date, lines) {
+                    var params = new http_1.URLSearchParams();
+                    params.set('type', mode);
+                    params.set('date', date.format('YYYY/MM/DD'));
+                    params.set('lines', lines.join(','));
+                    var option = { search: params };
+                    return this.http.get('/api/dailyinfo/statistic', option)
+                        .map(function (r) { return r.json(); })
+                        .catch(this.onError);
+                };
                 DailyInfoService.prototype.onError = function (err) {
                     console.error(err);
                     return Observable_1.Observable.throw('服务器错误');

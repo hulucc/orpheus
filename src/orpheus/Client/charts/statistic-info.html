@@ -1,0 +1,40 @@
+﻿<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>日期</th>
+                <th>总时间</th>
+                <th>无计划</th>
+                <th>切替</th>
+                <th>点检</th>
+                <th>试作</th>
+                <th>故障</th>
+                <th>待机</th>
+                <th>有效稼动</th>
+                <th>实绩稼动</th>
+                <th>理论稼动</th>
+                <th>生产性</th>
+                <th>设备稼动率</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let stat of stats;let i = index">
+                <th *ngIf="mode=='MonthByDay'">{{i + 1}}日</th>
+                <th *ngIf="mode=='MonthByWeek'">第{{i + 1}}周</th>
+                <th *ngIf="mode=='YearByMonth'">{{i <= 8?i + 4:i - 8}}月</th>
+                <td>{{stat.totalTime}}</td>
+                <td>{{stat.noPlan}}</td>
+                <td>{{stat.modelChange}}</td>
+                <td>{{stat.inspection}}</td>
+                <td>{{stat.trial}}</td>
+                <td>{{stat.fault}}</td>
+                <td>{{stat.waiting}}</td>
+                <td>{{stat.effectiveTime}}</td>
+                <td>{{stat.actualTime}}</td>
+                <td>{{round(stat.theoreticalTime)}}</td>
+                <td>{{stat.productivity | percent:'1.0-2'}}</td>
+                <td>{{stat.machineActivation | percent:'1.0-2'}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

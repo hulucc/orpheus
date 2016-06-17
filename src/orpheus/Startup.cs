@@ -10,6 +10,10 @@ using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Glimpse;
+using System.Data.Entity;
+using orpheus.Infrastructure;
+using orpheus.Core.Interface;
+using orpheus.Core;
 
 namespace orpheus
 {
@@ -33,7 +37,17 @@ namespace orpheus
         {
             services.AddSingleton<IConfiguration>(s => Configuration);
             services.AddGlimpse();
-            services.AddScoped<PersephoneDB>();
+            services.AddScoped<PersephoneDB>(
+                s => new PersephoneDB(Configuration["Data:CMS:ConnectionString"]));
+            services.AddScoped<KompasDB>(
+                s => new KompasDB(Configuration["Data:KOMPAS:ConnectionString"]));
+            services.AddScoped<GridDB>(
+                s => new GridDB(Configuration["Data:GRID:ConnectionString"]));
+            services.AddScoped<ITact, KompasMstTactLoader>();
+            services.AddScoped<IBoard, TrialChecker>();
+            services.AddScoped<IDailyRepository, DailyInfoRepository>();
+            services.AddScoped<DailyIteratorService>();
+            services.AddScoped<StatisticService>();
             services.AddMvc().AddJsonOptions(o =>
             {
                 o.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();

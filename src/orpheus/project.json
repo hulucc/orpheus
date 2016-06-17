@@ -14,7 +14,9 @@
     "Microsoft.AspNet.Server.Kestrel": "1.0.0-rc1-final",
     "Microsoft.AspNet.StaticFiles": "1.0.0-rc1-final",
     "Newtonsoft.Json": "8.0.3",
-    "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.0.0-rc1-final"
+    "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.0.0-rc1-final",
+    "Oracle.ManagedDataAccess": "12.1.24160419",
+    "Oracle.ManagedDataAccess.EntityFramework": "12.1.2400"
   },
 
   "commands": {
