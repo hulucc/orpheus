@@ -3,6 +3,7 @@ import { RouterDataService } from '../services/router-data';
 
 @Component({
     selector: 'about-page',
+    moduleId: module.id,
     templateUrl: 'about.html',
     styleUrls: ['page.css', 'about.css']
 })

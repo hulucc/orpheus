@@ -70,6 +70,7 @@ var DatePickerComponent = (function () {
     DatePickerComponent = __decorate([
         core_1.Component({
             selector: 'date-picker',
+            moduleId: module.id,
             template: "\n      <div class='input-group date'>\n          <input type='text'\n                 class=\"form-control\"\n                 [ngModel] =\"date?.format(dateFormat)\"/>\n          <span class=\"input-group-addon\">\n              <span class=\"glyphicon glyphicon-calendar\"></span>\n          </span>\n      </div>\n    "
         }), 
         __metadata('design:paramtypes', [core_1.ElementRef])

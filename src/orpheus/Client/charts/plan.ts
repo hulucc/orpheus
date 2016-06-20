@@ -3,6 +3,7 @@ import { DailyInfo, PlanInfo } from '../models/dailyinfo'
 
 @Component({
     selector: 'plan-table',
+    moduleId: module.id,
     templateUrl: 'plan.html',
     styleUrls: ['plan.css'],
 })

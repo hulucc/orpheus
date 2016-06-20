@@ -10,8 +10,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var http_1 = require('@angular/http');
-require('rxjs/Rx'); //Add all operators to Observable
-var Observable_1 = require('rxjs/Observable');
+//import 'rxjs/Rx'; //Add all operators to Observable
+var Rx_1 = require('rxjs/Rx');
 var moment = require('moment');
 var DailyInfoService = (function () {
     function DailyInfoService(http) {
@@ -62,7 +62,7 @@ var DailyInfoService = (function () {
     };
     DailyInfoService.prototype.onError = function (err) {
         console.error(err);
-        return Observable_1.Observable.throw('服务器错误');
+        return Rx_1.Observable.throw('服务器错误');
     };
     DailyInfoService = __decorate([
         core_1.Injectable(), 

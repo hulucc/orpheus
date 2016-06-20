@@ -3,6 +3,7 @@ import { Statistic, StatisticMode } from '../models/statistic';
 
 @Component({
     selector: 'statistic-info',
+    moduleId: module.id,
     templateUrl: 'statistic-info.html',
     styleUrls: ['statistic-info.css']
 })

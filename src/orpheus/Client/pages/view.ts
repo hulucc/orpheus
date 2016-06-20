@@ -11,6 +11,7 @@ import * as moment from 'moment';
 
 @Component({
     selector: 'view-page',
+    moduleId: module.id,
     templateUrl: 'view.html',
     styleUrls: ['page.css', 'view.css'],
     directives: [FORM_DIRECTIVES, PlanTableComponent, TimeLineChartComponent, TimeLine2ChartComponent],

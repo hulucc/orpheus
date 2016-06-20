@@ -3,6 +3,7 @@ import { StatisticMode } from '../models/statistic';
 
 @Component({
     selector: 'mode-selector',
+    moduleId: module.id,
     templateUrl: 'mode-selector.html',
 })
 

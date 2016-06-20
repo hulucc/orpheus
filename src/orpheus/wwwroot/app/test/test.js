@@ -24,6 +24,7 @@ var TestComponent = (function () {
     TestComponent = __decorate([
         core_1.Component({
             selector: 'my-test',
+            moduleId: module.id,
             template: "\n      <h2>Test, id:{{id}}</h2>\n      <p *ngFor=\"let testModel of testModels\">\n          {{testModel.name}}, {{testModel.isOk}}, {{testModel.count}}, {{testModel.startTime}}\n      </p>\n    ",
             providers: [test_service_1.TestService]
         }), 

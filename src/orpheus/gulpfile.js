@@ -34,6 +34,11 @@ var libs = [
     'TableHeadFixer/tableHeadFixer.js',
 ].map(function (p) { return 'node_modules/' + p; });
 
+var templates = [
+    '**/*.html',
+    '**/*.css'
+];
+
 gulp.task('libs.clean', function () {
     return del(['wwwroot/libs']);
 });
@@ -48,6 +53,13 @@ gulp.task('ts.clean', function () {
     return del(['wwwroot/app']);
 });
 
+
+gulp.task('ts.copy', ['ts.clean'], function () {
+    return gulp
+        .src(templates, { base: 'Client' })
+        .pipe(gulp.dest('wwwroot/app'));
+});
+
 var tsProject = ts.createProject('Client/tsconfig.json');
 gulp.task('ts.build', ['ts.clean'], function () {
     return tsProject
@@ -56,13 +68,13 @@ gulp.task('ts.build', ['ts.clean'], function () {
         .pipe(ts(tsProject))
         //.pipe(uglify())
         .pipe(gulp.dest('wwwroot/app'))
-        //.pipe(livereload())
+        .pipe(livereload())
         ;
 });
 
-gulp.task('build', ['libs.build', 'ts.build']);
+gulp.task('build', ['libs.build', 'ts.build', 'ts.copy']);
 
 gulp.task('watch', function () {
     livereload.listen();
-    gulp.watch('Client/**/*.*', ['ts'])
+    gulp.watch('Client/**/*.*', ['ts.build'])
 });

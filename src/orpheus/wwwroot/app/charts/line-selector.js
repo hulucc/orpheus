@@ -68,6 +68,7 @@ var LineSelectorComponent = (function () {
     LineSelectorComponent = __decorate([
         core_1.Component({
             selector: 'line-selector',
+            moduleId: module.id,
             template: "\n      <select class=\"form-control\" multiple=\"multiple\">\n          <optgroup label=\"\u5B9E\u88C5\">\n              <option *ngFor=\"let l of lineGroup1\" [value]=\"l\">{{l}}</option>\n          </optgroup>\n          <optgroup label=\"\u8F66\u8F7D\">\n              <option *ngFor=\"let l of lineGroup2\" [value]=\"l\">{{l}}</option>\n          </optgroup>\n      </select>\n    "
         }), 
         __metadata('design:paramtypes', [core_1.ElementRef])

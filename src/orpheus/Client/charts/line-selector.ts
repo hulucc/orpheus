@@ -2,6 +2,7 @@ import { Component, Input, Output, EventEmitter, ElementRef } from '@angular/cor
 
 @Component({
     selector: 'line-selector',
+    moduleId: module.id,
     templateUrl: 'line-selector.html'
 })
 

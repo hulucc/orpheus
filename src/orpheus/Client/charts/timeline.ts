@@ -5,6 +5,7 @@ import * as moment from 'moment';
 
 @Component({
     selector: 'timeline-chart',
+    moduleId: module.id,
     templateUrl: 'timeline.html',
     styleUrls: ['timeline.css'],
     directives: [PopoverDirective]

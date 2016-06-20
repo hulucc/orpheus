@@ -5,7 +5,8 @@ import { TestModel } from './test.model';
 
 @Component({
     selector: 'my-test',
-    templateUrl: './test.html',
+    moduleId: module.id,
+    templateUrl: 'test.html',
     providers: [TestService]
 })
 export class TestComponent {

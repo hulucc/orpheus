@@ -12,6 +12,7 @@ import * as moment from 'moment';
 
 @Component({
     selector: 'stat-page',
+    moduleId: module.id,
     templateUrl: 'stat.html',
     styleUrls: ['page.css', 'stat.css'],
     directives: [

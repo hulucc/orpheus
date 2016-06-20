@@ -3,6 +3,7 @@ import * as moment from 'moment';
 
 @Component({
     selector: 'date-picker',
+    moduleId: module.id,
     templateUrl: 'date-picker.html'
 })
 

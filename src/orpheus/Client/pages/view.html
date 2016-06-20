@@ -18,7 +18,6 @@
                        class="form-control"
                        ngControl="date"
                        required
-                       pattern="^\\d{4}年\\d{2}月\\d{2}日$"
                        [(ngModel)]="date" />
                 <span class="input-group-addon">
                     <span class="glyphicon glyphicon-calendar"></span>
@@ -38,7 +37,7 @@
         <button type="submit"
                 class="btn btn-default pull-right"
                 data-loading-text="查询中..."
-                [disabled]="!searchForm.valid||!selectedLines.length">
+                [disabled]="!(date && selectedLines.length)">
             提交
         </button>
     </form>

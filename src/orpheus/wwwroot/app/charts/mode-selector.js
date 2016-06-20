@@ -56,6 +56,7 @@ var ModeSelectorComponent = (function () {
     ModeSelectorComponent = __decorate([
         core_1.Component({
             selector: 'mode-selector',
+            moduleId: module.id,
             template: "\n      <select class=\"form-control\" size=\"2\" >\n          <option value=\"MonthByDay\">\u65E5\u5EA6</option>\n          <option value=\"MonthByWeek\">\u5468\u5EA6</option>\n          <option value=\"YearByMonth\">\u6708\u5EA6</option>\n      </select>\n    ",
         }), 
         __metadata('design:paramtypes', [core_1.ElementRef])

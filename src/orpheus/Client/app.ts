@@ -8,6 +8,7 @@ import { TestComponent, Test1Component } from './test/test';
 
 @Component({
     selector: 'my-app',
+    moduleId: module.id,
     templateUrl: 'app.html',
     styleUrls: ['app.css', 'pages/page.css'],
     directives: [
