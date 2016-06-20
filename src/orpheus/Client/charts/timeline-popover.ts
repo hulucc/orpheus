@@ -1,4 +1,4 @@
-﻿import { Input, Directive, ElementRef } from 'angular2/core';
+﻿import { Input, Directive, ElementRef } from '@angular/core';
 
 @Directive({
     selector: '[timeline-popover]'

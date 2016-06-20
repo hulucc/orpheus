@@ -1,13 +1,13 @@
-﻿import { Component, OnInit, ViewChild } from 'angular2/core';
-import { Router, RouteParams } from 'angular2/router';
+﻿import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router, RouteParams } from '@angular/router-deprecated';
 import { RouterDataService } from '../services/router-data';
-import { NgForm, FORM_DIRECTIVES, FORM_PROVIDERS, Validators } from 'angular2/common';
+import { NgForm, FORM_DIRECTIVES, FORM_PROVIDERS, Validators } from '@angular/common';
 import { DailyInfo, Dict } from '../models/dailyinfo';
 import { DailyInfoService } from '../services/dailyinfo';
 import { PlanTableComponent } from '../charts/plan'
 import { TimeLineChartComponent } from '../charts/timeline';
 import { TimeLine2ChartComponent } from '../charts/timeline2';
-import moment from 'moment';
+import * as moment from 'moment';
 
 @Component({
     selector: 'view-page',

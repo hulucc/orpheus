@@ -1,5 +1,5 @@
-import { Component, OnInit } from 'angular2/core';
-import { Router, RouteParams } from 'angular2/router';
+import { Component, OnInit } from '@angular/core';
+import { Router, RouteParams } from '@angular/router-deprecated';
 import { RouterDataService } from '../services/router-data';
 import { DatePickerComponent } from '../charts/date-picker';
 import { LineSelectorComponent } from '../charts/line-selector';
@@ -8,7 +8,7 @@ import { StatisticInfoComponent } from '../charts/statistic-info';
 import { StatisticInfoDetailComponent } from '../charts/statistic-info-detail';
 import { Statistic, StatisticDetail, StatisticTrace, StatisticMode } from '../models/statistic';
 import { DailyInfoService } from '../services/dailyinfo'
-import moment from 'moment';
+import * as moment from 'moment';
 
 @Component({
     selector: 'stat-page',

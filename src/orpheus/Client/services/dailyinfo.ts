@@ -1,10 +1,10 @@
-﻿import { Injectable } from 'angular2/core';
-import { Http, URLSearchParams, Response } from 'angular2/http';
+﻿import { Injectable } from '@angular/core';
+import { Http, URLSearchParams, Response } from '@angular/http';
 import 'rxjs/Rx'; //Add all operators to Observable
 import { Observable } from 'rxjs/Observable';
 import { DailyInfo, Dict } from '../models/dailyinfo';
 import { Statistic, StatisticMode } from '../models/statistic'
-import moment from 'moment';
+import * as moment from 'moment';
 
 @Injectable()
 export class DailyInfoService {

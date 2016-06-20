@@ -1,5 +1,5 @@
-import { Component, Input, Output, EventEmitter, ElementRef } from 'angular2/core';
-import moment from 'moment';
+import { Component, Input, Output, EventEmitter, ElementRef } from '@angular/core';
+import * as moment from 'moment';
 
 @Component({
     selector: 'date-picker',

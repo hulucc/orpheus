@@ -1,4 +1,4 @@
-﻿import { Component, Input } from 'angular2/core';
+﻿import { Component, Input, ElementRef } from '@angular/core';
 import { Statistic, StatisticDetail, StatisticMode } from '../models/statistic'; 
 
 @Component({
@@ -12,11 +12,20 @@ export class StatisticInfoDetailComponent {
     @Input() stats: Statistic[];
     @Input() mode: StatisticMode;
 
-    constructor() {
+    constructor(private el: ElementRef) {
 
     }
 
     ngOnInit() {
 
+    }
+
+    ngAfterViewInit() {
+        (<any>$(this.el.nativeElement))
+            .find('table')
+            .tableHeadFixer({
+            'left': 1,
+            'z-index': 999,
+        });
     }
 }

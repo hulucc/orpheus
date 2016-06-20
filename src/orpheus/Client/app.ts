@@ -1,5 +1,5 @@
-import { Component } from 'angular2/core';
-import { RouteConfig, ROUTER_DIRECTIVES, Router } from 'angular2/router';
+import { Component } from '@angular/core';
+import { RouteConfig, ROUTER_DIRECTIVES, Router } from '@angular/router-deprecated';
 import { RouterDataService } from './services/router-data';
 import { ViewPageComponent } from './pages/view';
 import { StatPageComponent } from './pages/stat';
