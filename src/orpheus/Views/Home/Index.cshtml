@@ -3,31 +3,12 @@
 }
 
 @section css {
-    <link rel="stylesheet" href="~/css/Home.css" />
-    <link rel="stylesheet" href="~/libs/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
-    <link rel="stylesheet" href="~/libs/bootstrap-multiselect/dist/css/bootstrap-multiselect.css" />
+    <script src="~/js/css.js"></script>
 }
 
 @section js {
-    <!--  polyfill(s) for older browsers -->
-    <script src="~/libs/core-js/client/shim.min.js"></script>
-
-    <script src="~/libs/zone.js/dist/zone.js"></script>
-    <script src="~/libs/reflect-metadata/Reflect.js"></script>
-    <script src="~/libs/systemjs/dist/system.src.js"></script>
-    <!-- datetimepicker -->
-    <script src="~/libs/moment/min/moment.min.js"></script>
-    <script src="~/libs/moment/locale/zh-cn.js"></script>
-    <script src="~/libs/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
-    <!-- multiselect -->
-    <script src="~/libs/bootstrap-multiselect/dist/js/bootstrap-multiselect.js"></script>
-    <!-- tableheadfixer -->
-    <script src="~/libs/TableHeadFixer/tableHeadFixer.js"></script>
-    <!-- configure systemjs -->
-    <script src="~/js/systemjs.config.js"></script>
-    <script>
-        System.import('app').catch(function (err) { console.error(err); });
-    </script>
+    <script src="~/js/vendor.js"></script>
+    <script src="~/js/app.js"></script>
 }
 
 <my-app>
