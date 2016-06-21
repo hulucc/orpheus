@@ -1,8 +1,10 @@
 ﻿var path = require('path');
 var webpack = require('webpack');
+var chunk = webpack.optimize.CommonsChunkPlugin;
 var html = require('html-webpack-plugin');
 var copy = require('copy-webpack-plugin');
 var clean = require('clean-webpack-plugin');
+var production = (process.env.NODE_ENV === 'production');
 
 module.exports = function makeWebpackConfig() {
     var config = {};
@@ -51,6 +53,9 @@ module.exports = function makeWebpackConfig() {
     };
 
     config.plugins = [
+        new chunk({
+            name: ['app', 'vendor', 'css']
+        }),
         new copy([
             {
                 from: root('Client/img'),
@@ -58,6 +63,14 @@ module.exports = function makeWebpackConfig() {
             }
         ])
     ];
+
+    if (production) {
+        config.plugins.push(
+            new webpack.NoErrorsPlugin(),
+            new webpack.optimize.DedupePlugin(),
+            new webpack.optimize.UglifyJsPlugin()
+        );
+    }
 
     return config;
 }();
