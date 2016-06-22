@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNet.TestHost;
 using Xunit;
 using Newtonsoft.Json;
 using orpheus.Core;
 using Xunit.Abstractions;
+using Microsoft.AspNetCore.TestHost;
+using Microsoft.AspNetCore.Hosting;
 
 namespace orpheus.Tests
 {
@@ -18,7 +19,7 @@ namespace orpheus.Tests
         public DailyInfoControllerIntegration(ITestOutputHelper output)
         {
             m_output = output;
-            m_server = new TestServer(TestServer.CreateBuilder().UseStartup<Startup>());
+            m_server = new TestServer(new WebHostBuilder().UseStartup<Startup>());
         }
 
         //helper

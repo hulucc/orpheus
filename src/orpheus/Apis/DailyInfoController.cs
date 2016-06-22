@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNet.Mvc;
 using System.Data.Entity;
 using orpheus.Infrastructure;
 using orpheus.Core.Interface;
 using System.Text.RegularExpressions;
 using orpheus.Core;
+using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -54,9 +54,9 @@ namespace orpheus.Apis
         {
             var queryDate = ParseDate(date);
             if (queryDate == DateTime.MinValue)
-                return HttpBadRequest();
+                return BadRequest();
             else if (!CheckLine(line))
-                return HttpBadRequest();
+                return BadRequest();
             var dailyInfos = m_dailyRepo
                 .GetByDateAndLines(queryDate, new[] { line });
             return Json(dailyInfos);
@@ -77,12 +77,12 @@ namespace orpheus.Apis
         {
             var parseDate = ParseDate(date);
             if (parseDate == DateTime.MinValue)
-                return HttpBadRequest();
+                return BadRequest();
             var lineCollection = lines
                 .Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
                 .Select(l => l.Trim());
             if (lineCollection.Any(l => !CheckLine(l)))
-                return HttpBadRequest();
+                return BadRequest();
             List<IEnumerable<PspDailyInfo>> dailyGroup;
             if (type.Equals("MonthByDay", StringComparison.OrdinalIgnoreCase))
                 dailyGroup = m_dailyIter.MonthByDay(parseDate, lineCollection);
@@ -91,7 +91,7 @@ namespace orpheus.Apis
             else if (type.Equals("YearByMonth", StringComparison.OrdinalIgnoreCase))
                 dailyGroup = m_dailyIter.YearByMonth(parseDate, lineCollection);
             else
-                return HttpBadRequest();
+                return BadRequest();
             var statisticCollection = dailyGroup
                 .Select(dailys => m_statistic.Summarize(dailys))
                 .ToList();

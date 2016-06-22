@@ -2,31 +2,32 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNet.Builder;
-using Microsoft.AspNet.Hosting;
-using Microsoft.AspNet.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using Glimpse;
+//using Glimpse;
 using System.Data.Entity;
 using orpheus.Infrastructure;
 using orpheus.Core.Interface;
 using orpheus.Core;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Builder;
+using System.IO;
 
 namespace orpheus
 {
     public class Startup
     {
         public IHostingEnvironment Enviroment { get; set; }
-        public IConfiguration Configuration { get; set; }
+        public IConfigurationRoot Configuration { get; set; }
 
         public Startup(IHostingEnvironment env)
         {
             Enviroment = env;
             var builder = new ConfigurationBuilder()
-                .AddJsonFile("appsettings.json")
+                .SetBasePath(env.ContentRootPath)
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
         }
@@ -36,7 +37,7 @@ namespace orpheus
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<IConfiguration>(s => Configuration);
-            services.AddGlimpse();
+            //services.AddGlimpse();
             services.AddScoped<PersephoneDB>(
                 s => new PersephoneDB(Configuration["Data:CMS:ConnectionString"]));
             services.AddScoped<KompasDB>(
@@ -62,15 +63,14 @@ namespace orpheus
         {
             if (env.IsDevelopment())
             {
-                app.UseBrowserLink();
                 app.UseDeveloperExceptionPage();
+                //app.UseBrowserLink();
             }
             else
             {
                 app.UseExceptionHandler("");
             }
-            app.UseGlimpse();
-            app.UseIISPlatformHandler();
+            //app.UseGlimpse();
             app.UseStaticFiles();
             app.UseMvc(routes =>
             {
@@ -83,8 +83,5 @@ namespace orpheus
                 //routes.MapRoute("fallback", "{*anything}", new { controller = "Home", action = "Index" });
             });
         }
-
-        // Entry point for the application.
-        public static void Main(string[] args) => WebApplication.Run<Startup>(args);
     }
 }
