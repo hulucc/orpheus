@@ -14,6 +14,7 @@ using orpheus.Core;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Builder;
 using System.IO;
+using Microsoft.AspNetCore.SpaServices.Webpack;
 
 namespace orpheus
 {
@@ -65,6 +66,10 @@ namespace orpheus
             {
                 app.UseDeveloperExceptionPage();
                 //app.UseBrowserLink();
+                app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
+                {
+                    HotModuleReplacement = true
+                });
             }
             else
             {
@@ -76,9 +81,16 @@ namespace orpheus
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{*anything}",
-                    defaults: new { action = "Index" }
-                    );
+                    template: "{controller=Home}/{action=Index}/{id?}");
+
+                routes.MapSpaFallbackRoute(
+                    name: "spa-fallback",
+                    defaults: new { controller = "Home", action = "Index" });
+                //routes.MapRoute(
+                //    name: "default",
+                //    template: "{controller=Home}/{*anything}",
+                //    defaults: new { action = "Index" }
+                //    );
 
                 //routes.MapRoute("fallback", "{*anything}", new { controller = "Home", action = "Index" });
             });

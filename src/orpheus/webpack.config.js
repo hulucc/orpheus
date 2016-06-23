@@ -4,71 +4,50 @@ var chunk = webpack.optimize.CommonsChunkPlugin;
 var html = require('html-webpack-plugin');
 var copy = require('copy-webpack-plugin');
 var clean = require('clean-webpack-plugin');
+var extract = require('extract-text-webpack-plugin');
 var production = (process.env.NODE_ENV === 'production');
 
 module.exports = function makeWebpackConfig() {
     var config = {};
 
     config.entry = {
-        'css': './Client/css.ts',
-        'vendor': './Client/vendor.ts',
-        'app': './Client/main.ts'
+        'main': ['./Client/main.ts'],
+        'vendor': ['./Client/vendor.ts'],
     };
 
     config.output = {
         path: root('./wwwroot'),
-        filename: 'js/[name].js'
+        filename: 'js/[name].js',
+        publicPath: '/',
     };
 
     config.resolve = {
-        root: root(),
         extensions: ['', '.ts', '.js', '.css', '.html'],
     }
 
     config.module = {
         loaders: [
-            {
-                test: /\.ts$/,
-                loader: 'ts'
-            },
-            {
-                test: /\.css$/,
-                exclude: root('Client', 'app'),
-                loader: 'style!css'
-            },
-            {
-                test: /\.css$/,
-                include: root('Client', 'app'),
-                loader: 'raw'
-            },
-            {
-                test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)$/,
-                loader: 'file?name=fonts/[name].[hash].[ext]?'
-            },
-            {
-                test: /\.html$/,
-                loader: 'raw'
-            },
+            { test: /\.ts$/, loader: 'ts' },
+            { test: /\.css$/, loader: extract.extract('style', 'css'), exclude: root('Client', 'app') },
+            { test: /\.css$/, loader: 'raw', include: root('Client', 'app') },
+            { test: /\.(png|woff|woff2|eot|ttf|svg)$/, loader: 'url?limit=8192&name=fonts/[name].[hash].[ext]' },
+            { test: /\.html$/, loader: 'raw' },
         ]
     };
 
     config.plugins = [
-        new chunk({
-            name: ['app', 'vendor', 'css']
-        }),
-        new copy([
-            {
-                from: root('Client/img'),
-                to: 'img'
-            }
-        ])
+        new extract("css/styles.css"),
+        new chunk('vendor', 'js/vendor.js', Infinity),
+        new copy([{ from: root('Client/img'), to: 'img' }]),
     ];
+
+    if (!production) {
+        config.devtool = 'cheap-module-eval-source-map';
+    }
 
     if (production) {
         config.plugins.push(
-            new webpack.NoErrorsPlugin(),
-            new webpack.optimize.DedupePlugin(),
-            new webpack.optimize.UglifyJsPlugin()
+            new clean(['*'], {root: root('./wwwroot')})
         );
     }
 
@@ -84,27 +63,4 @@ function root(args) {
 function rootNode(args) {
     args = Array.prototype.slice.call(arguments, 0);
     return root.apply(path, ['node_modules'].concat(args));
-}
-
-function packageSort(packages) {
-    // packages = ['polyfills', 'vendor', 'app']
-    var len = packages.length - 1;
-    var first = packages[0];
-    var last = packages[len];
-    return function sort(a, b) {
-        // polyfills always first
-        if (a.names[0] === first) {
-            return -1;
-        }
-        // main always last
-        if (a.names[0] === last) {
-            return 1;
-        }
-        // vendor before app
-        if (a.names[0] !== first && b.names[0] === last) {
-            return -1;
-        } else {
-            return 1;
-        }
-    }
 }
