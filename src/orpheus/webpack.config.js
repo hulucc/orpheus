@@ -23,6 +23,7 @@ module.exports = function makeWebpackConfig() {
 
     config.resolve = {
         extensions: ['', '.ts', '.js', '.css', '.html'],
+        modulesDirectories: ['node_modules'],
     }
 
     config.module = {
