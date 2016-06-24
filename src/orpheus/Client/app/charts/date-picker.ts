@@ -36,20 +36,12 @@ export class DatePickerComponent {
                 format: this.dateFormat,
                 locale: 'zh-cn',
             })
-            .on('dp.change', (e) => {
-                this.onDateChange(e.date);
-            });
+            .on('dp.change', (e) => this.onDateChange(e.date));
     }
 
     //private
     private onDateChange(date: moment.Moment) {
         this.date = date;
         this.dateChange.emit(this.date);
-    }
-
-    private getFormatDate() {
-        if (this.date)
-            return this.date.format(this.dateFormat);
-        return '';
     }
 }

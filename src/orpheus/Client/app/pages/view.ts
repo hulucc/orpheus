@@ -1,9 +1,10 @@
 ﻿import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { RouterDataService } from '../services/router-data';
-import { NgForm, FORM_DIRECTIVES, FORM_PROVIDERS, Validators } from '@angular/common';
 import { DailyInfo, Dict } from '../models/dailyinfo';
 import { DailyInfoService } from '../services/dailyinfo';
+import { DatePickerComponent } from '../charts/date-picker';
+import { LineSelectorComponent } from '../charts/line-selector';
 import { PlanTableComponent } from '../charts/plan'
 import { TimeLineChartComponent } from '../charts/timeline';
 import { TimeLine2ChartComponent } from '../charts/timeline2';
@@ -13,8 +14,13 @@ import * as moment from 'moment';
     selector: 'view-page',
     template: require('./view.html'),
     styles: [require('./page.css'), require('./view.css')],
-    directives: [FORM_DIRECTIVES, PlanTableComponent, TimeLineChartComponent, TimeLine2ChartComponent],
-    providers: [DailyInfoService, FORM_PROVIDERS]
+    directives: [
+        DatePickerComponent,
+        LineSelectorComponent,
+        PlanTableComponent, 
+        TimeLineChartComponent, 
+        TimeLine2ChartComponent],
+    providers: [DailyInfoService]
 })
 export class ViewPageComponent {
 
@@ -22,20 +28,17 @@ export class ViewPageComponent {
     //help
     dateFormat: string = 'YYYY年MM月DD日';
     //view search bind
-    lineGroup1: string[] = ['01', '02', '03', '04', '05', '06', '07', '08', 
-        '09', '10', '12', '13','14', '15', '16', '17', '18'];
-    lineGroup2: string[] = ['D01', 'D02', 'D03']
-    selectedLines: string[] = [];
-    date: string;
+    lines: string[] = [];
+    date: moment.Moment;
     showPlan: boolean = true;
     showTimeLine: boolean = true;
     //view result bind
-    resultLines: string[] = [];
-    resultShowPlan: boolean = true;
-    resultShowTimeLine: boolean = true;
+    rlines: string[];
+    rshowPlan: boolean;
+    rshowTimeLine: boolean;
     dailyInfoes: { [id: string] : DailyInfo[] } = {};
     states: string[];
-    showResult: boolean = false;    
+    showResult: boolean;    
     errMsg: string;
     
     constructor(
@@ -54,98 +57,59 @@ export class ViewPageComponent {
     ngOnDestory() {
         this.sub.unsubscribe();
     }
-    ngAfterViewInit() {
-        (<any>$('#select1')).multiselect({
-            includeSelectAllOption: true,
-            enableClickableOptGroups: true,
-            enableHTML: true,
-            inheritClass: true,
-            buttonWidth: '100%',
-            dropRight: true,
-            maxHeight: 300,
-            numberDisplayed: 10,
-            nonSelectedText: '&nbsp;',
-            nSelectedText: '条线体已选择',
-            selectAllText: '全选',
-            allSelectedText: '全选',
-            onChange: (element, checked) => {
-                let brands = $('#select1 option:selected');
-                let selected = [];
-                $(brands).each(function (index, brand) {
-                    selected.push($(this).val());
-                });
-                this.selectedLines = selected;
-            },
-        });
-        (<any>$('#select1')).multiselect('select', this.selectedLines);
-        
-        (<any>$('#datetimepicker1')).datetimepicker({
-            format: this.dateFormat,
-            locale: 'zh-cn',
-        })
-        .on('dp.change', (e) => {
-            if(e.date.format)
-                this.date = e.date.format(this.dateFormat);
-        });
-    }
+
     //private funcitons
     private loadQueryParams(params: { [key:string]: any }) {
-        let p = {
-            line: params['line'],
-            date: moment(params['date']).format(this.dateFormat),
-            plan: params['plan'],
-            tl: params['tl'],
-        };
-
+        let p = <any>params;
+        this.lines = p.line ? p.line.split(',') : [];
+        this.date = p.date ? moment(p.date) : null;
+        this.showPlan = p.plan ? p.plan === 'true' : true;
+        this.showTimeLine = p.tl ? p.tl === 'true' : true;
         if(p.line && p.date) {
+            this.rlines = this.lines;
+            this.rshowPlan = this.showPlan;
+            this.rshowTimeLine = this.showTimeLine;
+            
             (<any>$("button[type='submit']")).button('loading');
-            this.resultLines = p.line.split(',')
-            this.selectedLines = p.line.split(',');
-            this.date = p.date;
-            this.getDailyInfo();
-        }
-        if(p.plan) {
-            this.showPlan = (p.plan === 'true');
-            this.resultShowPlan = (p.plan === 'true');
-        }
-        if(p.tl) {
-            this.showTimeLine = (p.tl === 'true');
-            this.resultShowTimeLine = (p.tl === 'true');
+            this.loadDailyInfo();
         }
     }
 
-    private getDailyInfo() {
+    private loadDailyInfo() {
         this.dailyInfoSvc
             .getDicts()
             .subscribe(
                 res => this.states = res.filter(s => s.state != null).map(s => s.state),
                 err => this.errMsg = err);
-        for (let line of this.resultLines) {
+        for (let line of this.rlines) {
             this.dailyInfoSvc
-                .query(line, moment(this.date, this.dateFormat))
+                .query(line, this.date)
                 .subscribe(
-                    res => this.dailyInfoes[line] = res,
-                    err => this.onSubmitError(err),
-                    () => this.onSubmitComplete());
+                    res => this.onSubmitSuccess(line, res),
+                    err => this.onSubmitError(err));
         }
         
     }
 
     //events
     onSubmit() {
-        let isoDate: string = moment(this.date, this.dateFormat).toISOString();
+        let isoDate: string = this.date.toISOString();
         let params = { 
-            line: this.selectedLines.join(','), 
+            line: this.lines.join(','), 
             date: isoDate,
             plan: String(this.showPlan),
             tl: String(this.showTimeLine) };
         this.router.navigate(['/View'], {queryParams: params});
     }
 
+    onSubmitSuccess(line: string, dailys: DailyInfo[]) {
+        this.dailyInfoes[line] = dailys;
+        this.onSubmitComplete();
+    }
+
     onSubmitError(err: any) {
-        this.showResult = true;
         this.errMsg = err;
-        (<any>$("button[type='submit']")).button('reset');
+        this.onSubmitComplete();
     }
 
     onSubmitComplete() {

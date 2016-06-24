@@ -7,7 +7,19 @@ import { Component, Input, Output, EventEmitter, ElementRef } from '@angular/cor
 
 export class LineSelectorComponent {
 
-    @Input() selected: string[];
+    private _selected: string[];
+    @Input() set selected(lines: string[]) {
+        let control = <any>$(this.el.nativeElement).children('select');
+        if(lines && lines.length)
+            control.multiselect('select', lines);
+        else if(this._selected) {
+            this._selected.forEach(v => control.multiselect('deselect', v))   
+        }
+        this._selected = lines;
+    }
+    get selected(): string[] {
+        return this._selected;
+    }
     @Output() selectedChange = new EventEmitter<string[]>();
 
     lineGroup1: string[] = ['01', '02', '03', '04', '05', '06', '07', '08', 
@@ -41,21 +53,13 @@ export class LineSelectorComponent {
                         .find('option:selected')
                         .map((i, el) => { return $(el).val() })
                         .toArray();
-                    //let brands = $('#select1 option:selected');
-                    //let selected = [];
-                    //$(brands).each(function (index, brand) {
-                    //    selected.push($(this).val());
-                    //});
                     this.onSelectedChange(vals);
                 },
             });
-        (<any>$(this.el.nativeElement))
-            .children('select')
-            .multiselect('select', this.selected);
     }
 
     private onSelectedChange(lines: string[]) {
-        this.selected = lines;
-        this.selectedChange.emit(this.selected);
+        this._selected = lines;
+        this.selectedChange.emit(this._selected);
     }
 }

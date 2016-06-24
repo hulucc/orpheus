@@ -88,22 +88,14 @@ export class StatPageComponent {
 
     //private
     private loadQueryParams(params: { [key:string]: any }) {
-        let p = {
-            mode: params['mode'],
-            date: params['date'],
-            lines: params['lines'],
-            lineCombination: params['lineCombination'],
-            detailDisplay: params['detailDisplay'],
-        };
-        if(p.mode && p.date && p.lines && p.lineCombination && p.detailDisplay) {
-            this.mode = <StatisticMode>p.mode;
-            this.date = moment(p.date);
-            this.lines = p.lines.split(',');
-            this.lineCombination = (p.lineCombination === 'true');
-            this.detailDisplay = (p.detailDisplay === 'true');
-            
-            (<any>$("button[type='submit']"))
-            .button('loading');
+        let p = <any>params;
+        this.mode = p.mode ? <StatisticMode>p.mode : null;
+        this.date = p.date ? moment(p.date) : null;
+        this.lines = p.lines ? p.lines.split(',') : null;
+        this.lineCombination = p.lineCombination ? p.lineCombination === 'true' : false;
+        this.detailDisplay = p.detailDisplay ? p.detailDisplay === 'true' : false;
+        if(p.mode && p.date && p.lines) {
+            (<any>$("button[type='submit']")).button('loading');
             this.loadStatistics();
         }
     }

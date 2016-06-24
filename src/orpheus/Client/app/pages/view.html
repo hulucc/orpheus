@@ -1,28 +1,12 @@
 ﻿<div class="view-search row">
-    <form class="col-xs-12" (ngSubmit)="onSubmit()" #searchForm="ngForm">
+    <form class="col-xs-12" (ngSubmit)="onSubmit()">
         <div class="form-group">
             <label>线体</label>
-            <select id="select1" class="form-control" multiple="multiple">
-                <optgroup label="实装">
-                    <option *ngFor="let l of lineGroup1" [value]="l">{{l}}</option>
-                </optgroup>
-                <optgroup label="车载">
-                    <option *ngFor="let l of lineGroup2" [value]="l">{{l}}</option>
-                </optgroup>
-            </select>
+            <line-selector [(selected)]="lines"></line-selector>
         </div>
         <div class="form-group">
             <label class="control-label" for="">作业日</label>
-            <div class='input-group' id='datetimepicker1'>
-                <input type='text'
-                       class="form-control"
-                       ngControl="date"
-                       required
-                       [(ngModel)]="date" />
-                <span class="input-group-addon">
-                    <span class="glyphicon glyphicon-calendar"></span>
-                </span>
-            </div>
+            <date-picker [dateFormat]="dateFormat" [(date)]="date"></date-picker>
         </div>
         <div class="form-group">
             <label class="control-label" for="">显示</label>
@@ -37,7 +21,7 @@
         <button type="submit"
                 class="btn btn-default pull-right"
                 data-loading-text="查询中..."
-                [disabled]="!(date && selectedLines.length)">
+                [disabled]="!(date && lines.length)">
             提交
         </button>
     </form>
@@ -45,16 +29,16 @@
 
 <div class="page-container" *ngIf="showResult">
     <div class="alert alert-danger" role="alert" *ngIf="errMsg">{{errMsg}}</div>
-    <div class="view-result" *ngFor="let l of resultLines">
+    <div class="view-result" *ngFor="let l of rlines">
         <div class="alert alert-info" role="alert" *ngIf="!(dailyInfoes[l]?.length)&&!errMsg">所查询的{{l}}号线作业日报不存在</div>
         <div *ngIf="dailyInfoes[l]?.length">
-            <div *ngIf="resultShowPlan">
+            <div *ngIf="rshowPlan">
                 <div class="page-header">
                     <h3>计划 <small>{{l}}号线</small></h3>
                 </div>
                 <plan-table [dailyInfoes]="dailyInfoes[l]"></plan-table>
             </div>
-            <div *ngIf="resultShowTimeLine">
+            <div *ngIf="rshowTimeLine">
                 <div class="page-header">
                     <h3>时间轴 <small>{{l}}号线</small></h3>
                 </div>
