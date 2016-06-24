@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouteConfig, ROUTER_DIRECTIVES, Router } from '@angular/router-deprecated';
+import { ROUTER_DIRECTIVES } from '@angular/router';
 import { RouterDataService } from './services/router-data';
 import { ViewPageComponent } from './pages/view';
 import { StatPageComponent } from './pages/stat';
@@ -19,14 +19,6 @@ import { TestComponent, Test1Component } from './test/test';
         Test1Component], 
     providers: [RouterDataService]
 })
-@RouteConfig([
-    { path: '/Home/View', name: 'ViewPage', component: ViewPageComponent, useAsDefault: true },
-    { path: '/Home/Stat', name: 'StatPage', component: StatPageComponent },
-    { path: '/Home/About', name: 'AboutPage', component: AboutPageComponent },
-    { path: '/Home/test', name: 'Test', component: TestComponent},
-    { path: '/Home/test/:id', name: 'TestDetail', component: TestComponent },
-    { path: '/Home/test1', name: 'Test1', component: Test1Component },
-])
 export class AppComponent {
 
     pageTitle: string;
@@ -35,7 +27,6 @@ export class AppComponent {
     navVisible: boolean = false;
 
     constructor(
-        private router: Router, 
         private routerData: RouterDataService
         ) {
         this.routerData.title.subscribe(d => this.pageTitle = d);

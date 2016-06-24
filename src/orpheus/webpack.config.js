@@ -31,15 +31,14 @@ module.exports = function makeWebpackConfig() {
             { test: /\.ts$/, loader: 'ts' },
             { test: /\.css$/, loader: extract.extract('style', 'css'), exclude: root('Client', 'app') },
             { test: /\.css$/, loader: 'raw', include: root('Client', 'app') },
-            { test: /\.(png|woff|woff2|eot|ttf|svg)$/, loader: 'url?limit=8192&name=fonts/[name].[hash].[ext]' },
-            { test: /\.html$/, loader: 'raw' },
+            { test: /\.(png|woff|woff2|eot|ttf|svg)$/, loader: 'url?limit=102400&name=assert/[name].[hash].[ext]' },
+            { test: /\.html$/, loader: 'html' },
         ]
     };
 
     config.plugins = [
         new extract("css/styles.css"),
         new chunk('vendor', 'js/vendor.js', Infinity),
-        new copy([{ from: root('Client/img'), to: 'img' }]),
     ];
 
     if (!production) {

@@ -2,23 +2,23 @@
     <nav [class.nav-show]="navVisible" (click)="navVisible=false">
         <div id="nav-wrapper">
             <div id="logo">
-                <img src="img/logo.svg" alt="logo" />
+                <img src="./resource/logo.svg" alt="logo" />
                 <br />
                 作业日报管理
             </div>
             <ul>
                 <li>
-                    <a [routerLink]="['ViewPage']">
+                    <a [routerLink]="['/View']" [routerLinkActive]="['router-link-active']">
                         <span class="glyphicon glyphicon-search"></span>查看
                     </a>
                 </li>
                 <li>
-                    <a [routerLink]="['StatPage']">
+                    <a [routerLink]="['/Stat']" [routerLinkActive]="['router-link-active']">
                         <span class="glyphicon glyphicon-stats"></span>统计信息
                     </a>
                 </li>
                 <li>
-                    <a [routerLink]="['AboutPage']">
+                    <a [routerLink]="['/About']" [routerLinkActive]="['router-link-active']">
                         <span class="glyphicon glyphicon-cog"></span>关于
                     </a>
                 </li>

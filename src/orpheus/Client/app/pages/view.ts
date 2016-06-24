@@ -1,5 +1,5 @@
 ﻿import { Component, OnInit, ViewChild } from '@angular/core';
-import { Router, RouteParams } from '@angular/router-deprecated';
+import { Router } from '@angular/router';
 import { RouterDataService } from '../services/router-data';
 import { NgForm, FORM_DIRECTIVES, FORM_PROVIDERS, Validators } from '@angular/common';
 import { DailyInfo, Dict } from '../models/dailyinfo';
@@ -18,6 +18,7 @@ import * as moment from 'moment';
 })
 export class ViewPageComponent {
 
+    private sub: any;
     //help
     dateFormat: string = 'YYYY年MM月DD日';
     //view search bind
@@ -40,7 +41,6 @@ export class ViewPageComponent {
     constructor(
         private router: Router,
         private routerData: RouterDataService,
-        private routeParams: RouteParams,
         private dailyInfoSvc: DailyInfoService
         ) {
         this.routerData.title.next('作业日报查看');
@@ -48,29 +48,12 @@ export class ViewPageComponent {
     }
     
     ngOnInit() {
-        let p = {
-            line: this.routeParams.get('line'),
-            date: moment(this.routeParams.get('date')).format(this.dateFormat),
-            plan: this.routeParams.get('plan'),
-            tl: this.routeParams.get('tl'),
-        };
-        if(p.line && p.date) {
-            (<any>$("button[type='submit']")).button('loading');
-            this.selectedLines = p.line.split(',');
-            this.resultLines = p.line.split(',')
-            this.date = p.date;
-            this.getDailyInfo();
-        }
-        if(p.plan) {
-            this.showPlan = (p.plan === 'true');
-            this.resultShowPlan = (p.plan === 'true');
-        }
-        if(p.tl) {
-            this.showTimeLine = (p.tl === 'true');
-            this.resultShowTimeLine = (p.tl === 'true');
-        }
+        this.sub = this.router.routerState.queryParams
+            .subscribe(ps => this.loadQueryParams(ps));
     }
-
+    ngOnDestory() {
+        this.sub.unsubscribe();
+    }
     ngAfterViewInit() {
         (<any>$('#select1')).multiselect({
             includeSelectAllOption: true,
@@ -106,6 +89,31 @@ export class ViewPageComponent {
         });
     }
     //private funcitons
+    private loadQueryParams(params: { [key:string]: any }) {
+        let p = {
+            line: params['line'],
+            date: moment(params['date']).format(this.dateFormat),
+            plan: params['plan'],
+            tl: params['tl'],
+        };
+
+        if(p.line && p.date) {
+            (<any>$("button[type='submit']")).button('loading');
+            this.resultLines = p.line.split(',')
+            this.selectedLines = p.line.split(',');
+            this.date = p.date;
+            this.getDailyInfo();
+        }
+        if(p.plan) {
+            this.showPlan = (p.plan === 'true');
+            this.resultShowPlan = (p.plan === 'true');
+        }
+        if(p.tl) {
+            this.showTimeLine = (p.tl === 'true');
+            this.resultShowTimeLine = (p.tl === 'true');
+        }
+    }
+
     private getDailyInfo() {
         this.dailyInfoSvc
             .getDicts()
@@ -126,12 +134,12 @@ export class ViewPageComponent {
     //events
     onSubmit() {
         let isoDate: string = moment(this.date, this.dateFormat).toISOString();
-        let link = ['ViewPage', { 
+        let params = { 
             line: this.selectedLines.join(','), 
             date: isoDate,
             plan: String(this.showPlan),
-            tl: String(this.showTimeLine) }];
-        this.router.navigate(link);
+            tl: String(this.showTimeLine) };
+        this.router.navigate(['/View'], {queryParams: params});
     }
 
     onSubmitError(err: any) {

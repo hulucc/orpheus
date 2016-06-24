@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, RouteParams } from '@angular/router-deprecated';
+import { Router } from '@angular/router';
 import { RouterDataService } from '../services/router-data';
 import { DatePickerComponent } from '../charts/date-picker';
 import { LineSelectorComponent } from '../charts/line-selector';
@@ -24,6 +24,7 @@ import * as moment from 'moment';
 })
 export class StatPageComponent {
     
+    private sub: any;
     //stat-search bind
     mode: StatisticMode;
     date: moment.Moment;
@@ -41,7 +42,6 @@ export class StatPageComponent {
 
     constructor(
         private router: Router,
-        private routeParams: RouteParams,
         private routerData: RouterDataService,
         private dailyInfoSvc: DailyInfoService
         ) {
@@ -50,12 +50,11 @@ export class StatPageComponent {
     }
 
     ngOnInit() {
-        if(this.loadQueryParams()) {
-            (<any>$("button[type='submit']"))
-                .button('loading');
-            this.loadStatistics();
-            //this.showErrorMsg('');
-        }
+        this.sub = this.router.routerState.queryParams
+            .subscribe(ps => this.loadQueryParams(ps));
+    }
+    ngOnDestroy() {
+        this.sub.unsubscribe();
     }
 
     onSubmit() {
@@ -66,8 +65,7 @@ export class StatPageComponent {
             lineCombination: String(this.lineCombination),
             detailDisplay: String(this.detailDisplay),
         };
-        let link = ['StatPage', params];
-        this.router.navigate(link);
+        this.router.navigate(['/Stat'], {queryParams: params});
     }
 
     onSubmitSuccess(line: string, stats: Statistic[]) {
@@ -89,13 +87,13 @@ export class StatPageComponent {
     }
 
     //private
-    private loadQueryParams(): boolean {
+    private loadQueryParams(params: { [key:string]: any }) {
         let p = {
-            mode: this.routeParams.get('mode'),
-            date: this.routeParams.get('date'),
-            lines: this.routeParams.get('lines'),
-            lineCombination: this.routeParams.get('lineCombination'),
-            detailDisplay: this.routeParams.get('detailDisplay'),
+            mode: params['mode'],
+            date: params['date'],
+            lines: params['lines'],
+            lineCombination: params['lineCombination'],
+            detailDisplay: params['detailDisplay'],
         };
         if(p.mode && p.date && p.lines && p.lineCombination && p.detailDisplay) {
             this.mode = <StatisticMode>p.mode;
@@ -103,10 +101,11 @@ export class StatPageComponent {
             this.lines = p.lines.split(',');
             this.lineCombination = (p.lineCombination === 'true');
             this.detailDisplay = (p.detailDisplay === 'true');
-            return true;
+            
+            (<any>$("button[type='submit']"))
+            .button('loading');
+            this.loadStatistics();
         }
-        else
-            return false;
     }
 
     private loadStatistics() {
