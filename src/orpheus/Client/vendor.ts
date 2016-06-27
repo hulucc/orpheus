@@ -24,12 +24,6 @@ import '@angular/upgrade';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css';
 import 'bootstrap-multiselect/dist/css/bootstrap-multiselect.css';
-import './css/site.css';
 
-// Other libraries.
-import 'script!jquery/dist/jquery';
-import 'script!bootstrap/dist/js/bootstrap';
-import 'script!moment/min/moment-with-locales';
-import 'script!bootstrap-multiselect/dist/js/bootstrap-multiselect';
-import 'script!eonasdan-bootstrap-datetimepicker/src/js/bootstrap-datetimepicker';
-import 'script!TableHeadFixer/tableHeadFixer';
+// Libraries.
+import './global.ts'

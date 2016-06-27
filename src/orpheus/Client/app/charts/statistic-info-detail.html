@@ -32,7 +32,7 @@
             <tr *ngFor="let stat of stats;let i=index">
                 <th *ngIf="mode=='MonthByDay'">{{i + 1}}日</th>
                 <th *ngIf="mode=='MonthByWeek'">第{{i + 1}}周</th>
-                <th *ngIf="mode=='YearByMonth'">{{i <= 8?i + 4:i - 8}}月</th>
+                <th *ngIf="mode=='YearByMonth'">{{8 >= i?i + 4:i - 8}}月</th>
                 <td>{{stat.detail.totalTime}}</td>
                 <td>{{stat.detail.noPlan}}</td>
                 <td>{{stat.detail.change}}</td>

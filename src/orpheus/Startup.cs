@@ -68,7 +68,8 @@ namespace orpheus
                 //app.UseBrowserLink();
                 app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
                 {
-                    HotModuleReplacement = true
+                    ConfigFile = "webpack.config.js",
+                    HotModuleReplacement = true,
                 });
             }
             else

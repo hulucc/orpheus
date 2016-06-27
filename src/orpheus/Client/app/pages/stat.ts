@@ -11,7 +11,6 @@ import { DailyInfoService } from '../services/dailyinfo'
 import * as moment from 'moment';
 
 @Component({
-    selector: 'stat-page',
     template: require('./stat.html'),
     styles: [require('./page.css'), require('./stat.css')],
     directives: [

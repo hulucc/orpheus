@@ -8,13 +8,17 @@ import { StatisticMode } from '../models/statistic';
 
 export class ModeSelectorComponent {
 
+    viewInit: boolean = false;
     private _mode: StatisticMode;
     @Input() set mode(mode: StatisticMode) {
         let control = <any>$(this.el.nativeElement).children('select')
-        if(mode)
-            control.multiselect('select', mode);
-        else if(this._mode)
-            control.multiselect('deselect', this._mode);
+        if(this.viewInit) {
+            if(this._mode)
+                control.multiselect('deselect', this._mode);
+            if(mode)
+                control.multiselect('select', mode);
+        }
+        
         this._mode = mode;
     }
     get mode(): StatisticMode {
@@ -49,7 +53,10 @@ export class ModeSelectorComponent {
                     this.onSelectedChange(vals[0]);
                 },
             });
-        
+        (<any>$(this.el.nativeElement))
+            .children('select')
+            .multiselect('select', this._mode);
+        this.viewInit = true;
     }
     //private
     private onSelectedChange(mode: StatisticMode) {

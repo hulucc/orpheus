@@ -3,7 +3,6 @@ var webpack = require('webpack');
 var chunk = webpack.optimize.CommonsChunkPlugin;
 var html = require('html-webpack-plugin');
 var copy = require('copy-webpack-plugin');
-var clean = require('clean-webpack-plugin');
 var extract = require('extract-text-webpack-plugin');
 var production = (process.env.NODE_ENV === 'production');
 
@@ -12,17 +11,17 @@ module.exports = function makeWebpackConfig() {
 
     config.entry = {
         'main': ['./Client/main.ts'],
-        'vendor': ['./Client/vendor.ts'],
     };
 
     config.output = {
-        path: root('./wwwroot'),
+        path: root('wwwroot'),
         filename: 'js/[name].js',
         publicPath: '/',
     };
 
     config.resolve = {
-        extensions: ['', '.ts', '.js', '.css', '.html'],
+        root: root('Client'),
+        extensions: ['', '.ts', '.js'],
         modulesDirectories: ['node_modules'],
     }
 
@@ -37,8 +36,17 @@ module.exports = function makeWebpackConfig() {
     };
 
     config.plugins = [
-        new extract("css/styles.css"),
-        new chunk('vendor', 'js/vendor.js', Infinity),
+        new extract('css/styles.css'),
+        //new chunk('vendor', 'js/vendor.js', Infinity),
+        new webpack.DllReferencePlugin({
+            context: root(),
+            manifest: require('./wwwroot/js/vendor-manifest.json'),
+        }),
+        new webpack.DefinePlugin({
+            'process.env': {
+                'ENV': JSON.stringify(process.env.NODE_ENV)
+            }
+        }),
     ];
 
     if (!production) {
@@ -46,8 +54,13 @@ module.exports = function makeWebpackConfig() {
     }
 
     if (production) {
+        config.htmlLoader = {
+            minimize: false
+        }
         config.plugins.push(
-            new clean(['*'], {root: root('./wwwroot')})
+            new webpack.NoErrorsPlugin(),
+            new webpack.optimize.DedupePlugin(),
+            new webpack.optimize.UglifyJsPlugin({ compress: {warnings: false}})
         );
     }
 

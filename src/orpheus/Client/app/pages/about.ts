@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { RouterDataService } from '../services/router-data';
 
 @Component({
-    selector: 'about-page',
     template: require('./about.html'),
     styles: [require('./page.css'), require('./about.css')]
 })

@@ -11,7 +11,6 @@ import { TimeLine2ChartComponent } from '../charts/timeline2';
 import * as moment from 'moment';
 
 @Component({
-    selector: 'view-page',
     template: require('./view.html'),
     styles: [require('./page.css'), require('./view.css')],
     directives: [
@@ -24,9 +23,8 @@ import * as moment from 'moment';
 })
 export class ViewPageComponent {
 
-    private sub: any;
     //help
-    dateFormat: string = 'YYYY年MM月DD日';
+    private sub: any;
     //view search bind
     lines: string[] = [];
     date: moment.Moment;

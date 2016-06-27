@@ -7,14 +7,17 @@ import { Component, Input, Output, EventEmitter, ElementRef } from '@angular/cor
 
 export class LineSelectorComponent {
 
+    viewInit: boolean = false;
     private _selected: string[];
     @Input() set selected(lines: string[]) {
         let control = <any>$(this.el.nativeElement).children('select');
-        if(lines && lines.length)
-            control.multiselect('select', lines);
-        else if(this._selected) {
-            this._selected.forEach(v => control.multiselect('deselect', v))   
+        if(this.viewInit) {
+            if(this._selected)
+                this._selected.forEach(v => control.multiselect('deselect', v))
+            if(lines && lines.length)
+                control.multiselect('select', lines);
         }
+        
         this._selected = lines;
     }
     get selected(): string[] {
@@ -56,6 +59,10 @@ export class LineSelectorComponent {
                     this.onSelectedChange(vals);
                 },
             });
+        (<any>$(this.el.nativeElement))
+            .children('select')
+            .multiselect('select', this._selected);
+        this.viewInit = true;
     }
 
     private onSelectedChange(lines: string[]) {
