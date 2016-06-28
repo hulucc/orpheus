@@ -19,15 +19,18 @@ namespace orpheus.Apis
         private readonly IDailyRepository m_dailyRepo;
         private readonly DailyIteratorService m_dailyIter;
         private readonly StatisticService m_statistic;
+        private readonly TraceService m_trace;
 
         public DailyInfoController(
             IDailyRepository dailyRepo,
             DailyIteratorService dailyIter,
-            StatisticService statistic)
+            StatisticService statistic,
+            TraceService trace)
         {
             m_dailyRepo = dailyRepo;
             m_dailyIter = dailyIter;
             m_statistic = statistic;
+            m_trace = trace;
         }
 
         //helper
@@ -78,9 +81,7 @@ namespace orpheus.Apis
             var parseDate = ParseDate(date);
             if (parseDate == DateTime.MinValue)
                 return BadRequest();
-            var lineCollection = lines
-                .Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
-                .Select(l => l.Trim());
+            var lineCollection = lines.Split(',').Select(l => l.Trim());
             if (lineCollection.Any(l => !CheckLine(l)))
                 return BadRequest();
             List<IEnumerable<PspDailyInfo>> dailyGroup;
@@ -96,6 +97,22 @@ namespace orpheus.Apis
                 .Select(dailys => m_statistic.Summarize(dailys))
                 .ToList();
             return Json(statisticCollection);
+        }
+
+        [HttpGet("planinfo")]
+        public IActionResult GetPlanInfo([FromQuery]string id)
+        {
+            var ids = id.Split(',').Select(i => Convert.ToDecimal(i));
+            var traces = m_trace.GetPlans(ids);
+            return Json(traces);
+        }
+
+        [HttpGet("timeline")]
+        public IActionResult GetTimeLine([FromQuery]string id)
+        {
+            var ids = id.Split(',').Select(i => Convert.ToDecimal(i));
+            var traces = m_trace.GetTimeLines(ids);
+            return Json(traces);
         }
 
         // GET api/values/5

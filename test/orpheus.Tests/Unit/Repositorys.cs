@@ -58,5 +58,23 @@ namespace orpheus.Tests
             var dicts = m_dailyRepo.GetDicts();
             Assert.Equal(4, dicts.Count());
         }
+
+        [Fact]
+        public void DailyRepository_GetPlanById()
+        {
+            decimal id = 99;
+            var plan = m_dailyRepo.GetPlanById(id);
+            Assert.Equal(id, plan.Recid);
+            Assert.Equal(54, plan.DailyID);
+        }
+
+        [Fact]
+        public void DailyRepository_GetTimeLineById()
+        {
+            decimal id = 1;
+            var tl = m_dailyRepo.GetTimeLineById(id);
+            Assert.Equal(id, tl.Recid);
+            Assert.Equal("12", tl.Line);
+        }
     }
 }

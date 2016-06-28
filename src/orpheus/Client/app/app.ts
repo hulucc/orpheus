@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ROUTER_DIRECTIVES } from '@angular/router';
 import { RouterDataService } from './services/router-data';
+import { HelperService } from './services/helper';
 import { ViewPageComponent } from './pages/view';
 import { StatPageComponent } from './pages/stat';
 import { AboutPageComponent } from './pages/about';
@@ -17,7 +18,7 @@ import { TestComponent, Test1Component } from './test/test';
         AboutPageComponent,
         TestComponent, 
         Test1Component], 
-    providers: [RouterDataService]
+    providers: [RouterDataService, HelperService]
 })
 export class AppComponent {
 

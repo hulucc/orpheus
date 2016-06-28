@@ -14,7 +14,6 @@
                 <th>实绩数</th>
                 <th>当日累计</th>
                 <th>偿却</th>
-                <th>擦除枚数</th>
                 <th>备注</th>
             </tr>
         </thead>
@@ -27,12 +26,11 @@
                 <td>{{plan.lot}}</td>
                 <td>{{plan.sLot}}</td>
                 <td>{{plan.koutei}}</td>
-                <td>{{formatSLotUncomp(plan.sLotUncomp, plan.append)}}</td>
+                <td>{{helper.plus(plan.sLotUncomp, plan.append)}}</td>
                 <td>{{plan.lotComp}}</td>
                 <td>{{plan.shiftComp}}</td>
                 <td>{{plan.lotCompAfter}}</td>
                 <td>{{plan.joc}}</td>
-                <td>{{plan.cleanCount}}</td>
                 <td>{{plan.remark}}</td>
             </tr>
         </tbody>

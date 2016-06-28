@@ -38,6 +38,11 @@ namespace orpheus
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<IConfiguration>(s => Configuration);
+            services.AddSingleton<AutoMapper.IMapper>(s => new AutoMapper.MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<PspPlanInfo, PspPlanInfoTrace>();
+                cfg.CreateMap<PspTimeLine, PspTimeLineTrace>();
+            }).CreateMapper());
             //services.AddGlimpse();
             services.AddScoped<PersephoneDB>(
                 s => new PersephoneDB(Configuration["Data:CMS:ConnectionString"]));
@@ -50,6 +55,7 @@ namespace orpheus
             services.AddScoped<IDailyRepository, DailyInfoRepository>();
             services.AddScoped<DailyIteratorService>();
             services.AddScoped<StatisticService>();
+            services.AddScoped<TraceService>();
             services.AddMvc().AddJsonOptions(o =>
             {
                 o.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();

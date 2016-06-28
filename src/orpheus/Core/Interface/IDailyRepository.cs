@@ -11,5 +11,8 @@ namespace orpheus.Core.Interface
         IEnumerable<PspDailyInfo> GetByDateAndLines(DateTime date, IEnumerable<string> lines);
         IEnumerable<PspDailyInfo> GetByDateSpanAndLines(DateTime startDate, DateTime endDate, IEnumerable<string> lines);
         IEnumerable<PspDict> GetDicts();
+
+        PspPlanInfo GetPlanById(decimal id);
+        PspTimeLine GetTimeLineById(decimal id);
     }
 }

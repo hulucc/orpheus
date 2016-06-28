@@ -1,5 +1,6 @@
 ﻿import { Component, Input } from '@angular/core'
 import { DailyInfo, PlanInfo } from '../models/dailyinfo'
+import { HelperService } from '../services/helper'
 
 @Component({
     selector: 'plan-table',
@@ -8,15 +9,6 @@ import { DailyInfo, PlanInfo } from '../models/dailyinfo'
 })
 export class PlanTableComponent {
     @Input() dailyInfoes: DailyInfo[];
-
-    //private
-    private formatSLotUncomp(sLotUncomp, append) {
-        if(append == 0) {
-            return sLotUncomp;
-        } else if (append > 0) {
-            return sLotUncomp + ' + ' + append;
-        } else if (append < 0) {
-            return sLotUncomp + ' - ' + Math.abs(append);
-        }
-    }
+    
+    constructor(private helper: HelperService) {}
 }

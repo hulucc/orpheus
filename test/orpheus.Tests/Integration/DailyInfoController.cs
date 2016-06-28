@@ -72,5 +72,26 @@ namespace orpheus.Tests
             var statistics3 = await RequestByGet<IEnumerable<PspStatistic>>(url3);
             Assert.Equal(12, statistics3.Count());
         }
+
+        [Fact]
+        public async void PlanInfo()
+        {
+            var url = "/api/dailyinfo/planinfo?id=99,100";
+            var traces = await RequestByGet<IEnumerable<PspPlanInfoTrace>>(url);
+            Assert.Equal(2, traces.Count());
+            Assert.Equal(99, traces.First().Recid);
+            Assert.NotEqual(0, traces.First().Tact);
+            Assert.Equal(false, traces.First().IsTrial);
+        }
+
+        [Fact]
+        public async void TimeLine()
+        {
+            var url = "/api/dailyinfo/timeline?id=1,2";
+            var traces = await RequestByGet<IEnumerable<PspTimeLineTrace>>(url);
+            Assert.Equal(2, traces.Count());
+            Assert.Equal(1, traces.First().Recid);
+            Assert.Equal("12", traces.First().Line);
+        }
     }
 }

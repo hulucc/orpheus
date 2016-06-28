@@ -1,0 +1,22 @@
+﻿<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>线体</th>
+                <th>状态</th>
+                <th>时间</th>
+                <th>时长</th>
+                <th>备注</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let tl of timelines">
+                <th>{{tl.line}}</th>
+                <th>{{tl.state}}</th>
+                <th>{{tl.startTime.format('HH:mm')}} ~ {{tl.endTime.format('HH:mm')}}</th>
+                <th>{{helper.duration(tl.startTime, tl.endTime)}}</th>
+                <th>{{tl.dismension?tl.dismension.slice(2):'无'}}</th>
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -9,16 +9,16 @@ export class PopoverDirective {
     @Input('timeline-popover') content: string;
 
     ngOnInit() {
-        (<any>jQuery(this.el.nativeElement)).popover({
+        $(this.el.nativeElement).popover({
             animation: true,
             html: true,
             trigger: 'hover',
-            toggle: 'popover',
             placement: 'top',
             container: 'body',
             delay: 100,
             title: '<span class="glyphicon glyphicon-search"></span>详细信息',
             content: this.content,
+            //toggle: 'popover',
             //viewport: { selector: '.right' }
         });
     }

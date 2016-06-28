@@ -7,6 +7,7 @@ using Moq;
 using orpheus.Core.Interface;
 using orpheus.Core;
 using Xunit.Abstractions;
+using AutoMapper;
 
 namespace orpheus.Tests
 {
@@ -150,6 +151,10 @@ namespace orpheus.Tests
             var daily1 = new PspDailyInfo { Recid = 1 };
             var daily2 = new PspDailyInfo { Recid = 2 };
             var daily3 = new PspDailyInfo { Recid = 3 };
+            var plan1 = new PspPlanInfo { Recid = 1, Kishname = "YAS069800", Kibaname = "B-6593", Lot = "018", SLot = "1", Koutei = "2R" };
+            var plan2 = new PspPlanInfo { Recid = 2, Kishname = "YAS072900", Kibaname = "B-6600", Lot = "007", SLot = "1", Koutei = "2R" };
+            var tl1 = new PspTimeLine { Recid = 1 };
+            var tl2 = new PspTimeLine { Recid = 2 };
             m.Setup(repo => repo.GetByDateAndLines(It.IsAny<DateTime>(), lines)).Returns(new PspDailyInfo[] { });
             m.Setup(repo => repo.GetByDateSpanAndLines(It.IsAny<DateTime>(), It.IsAny<DateTime>(), lines)).Returns(new PspDailyInfo[] { });
             m.Setup(repo => repo.GetByDateAndLines(date1, lines)).Returns(new[] { daily1 });
@@ -158,6 +163,10 @@ namespace orpheus.Tests
             m.Setup(repo => repo.GetByDateSpanAndLines(date1, date2, lines)).Returns(new[] { daily1, daily2 });
             m.Setup(repo => repo.GetByDateSpanAndLines(date3, date4, lines)).Returns(new[] { daily3 });
             m.Setup(repo => repo.GetByDateSpanAndLines(date1, date4, lines)).Returns(new[] { daily1, daily2, daily3 });
+            m.Setup(repo => repo.GetPlanById(1)).Returns(plan1);
+            m.Setup(repo => repo.GetPlanById(2)).Returns(plan2);
+            m.Setup(repo => repo.GetTimeLineById(1)).Returns(tl1);
+            m.Setup(repo => repo.GetTimeLineById(2)).Returns(tl2);
             return m.Object;
         }
 
@@ -175,6 +184,17 @@ namespace orpheus.Tests
                 .Returns((IEnumerable<PspDailyInfo>)null);
             return m.Object;
 
+        }
+
+        private IMapper GetMockMapper()
+        {
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<PspPlanInfo, PspPlanInfoTrace>();
+                cfg.CreateMap<PspTimeLine, PspTimeLineTrace>();
+            });
+            //config.AssertConfigurationIsValid();
+            return config.CreateMapper();
         }
 
         private List<decimal> GetTrace(PspStatisticTrace trace, string pname)
@@ -400,6 +420,34 @@ namespace orpheus.Tests
             var june = result[6 - 4];
             Assert.Equal(new decimal[] { }, april.Select(d => d.Recid));
             Assert.Equal(new decimal[] { }, june.Select(d => d.Recid));
+        }
+
+        [Fact]
+        public void TraceService_GetPlans()
+        {
+            var mapper = GetMockMapper();
+            var dailyRepo = GetMockDailyRepository();
+            var tact = GetMockTact();
+            var board = GetMockBoard();
+            var traceSvc = new TraceService(mapper, dailyRepo, tact, board);
+            var plans = traceSvc.GetPlans(new decimal[] { 1, 2 });
+            Assert.Equal(2, plans.Count());
+            Assert.Equal(1, plans.First().Recid);
+            Assert.Equal(25, plans.First().Tact);
+            Assert.Equal(true, plans.ElementAt(1).IsTrial);
+        }
+
+        [Fact]
+        public void TraceService_GetTimeLines()
+        {
+            var mapper = GetMockMapper();
+            var dailyRepo = GetMockDailyRepository();
+            var tact = GetMockTact();
+            var board = GetMockBoard();
+            var traceSvc = new TraceService(mapper, dailyRepo, tact, board);
+            var tls = traceSvc.GetTimeLines(new decimal[] { 1, 2 });
+            Assert.Equal(2, tls.Count());
+            Assert.Equal(1, tls.First().Recid);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿import { Component, OnInit, Input, Directive, ElementRef } from '@angular/core';
 import { DailyInfo, TimeLine, Dict } from '../models/dailyinfo'
 import { PopoverDirective } from './timeline-popover'
+import { HelperService } from '../services/helper'
 
 @Component({
     selector: 'timeline-chart',
@@ -14,8 +15,7 @@ export class TimeLineChartComponent {
 
     cellWidth: number = 79;
 
-    ngOnInit() {
-    }
+    constructor(private heler: HelperService) {}
 
     //private function
     private getHours(daily: DailyInfo) {
@@ -52,20 +52,5 @@ export class TimeLineChartComponent {
             left: left,
             width: right - left
         };
-    }
-
-    private getDurationStr(start: moment.Moment, end: moment.Moment) {
-        let mins = end.diff(start, 'minute');
-        let duration = moment.duration(mins, 'minute');
-        let hour = duration.hours();
-        let min = duration.minutes();
-        let str = '';
-        if(hour && min)
-            str = hour + '小时' + min + '分';
-        else if(hour)
-            str = hour + '小时';
-        else if(min)
-            str = min + '分钟'
-        return str;
     }
 }

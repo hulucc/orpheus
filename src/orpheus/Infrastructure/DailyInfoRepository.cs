@@ -57,5 +57,19 @@ namespace orpheus.Infrastructure
         {
             return m_db.PspDicts;
         }
+
+        public PspPlanInfo GetPlanById(decimal id)
+        {
+            return m_db.PspPlanInfoes
+                .Where(p => p.Recid == id)
+                .Single();
+        }
+
+        public PspTimeLine GetTimeLineById(decimal id)
+        {
+            return m_db.PspTimeLines
+                .Where(p => p.Recid == id)
+                .Single();
+        }
     }
 }

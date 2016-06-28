@@ -3,6 +3,11 @@ body {
     font-family: Arial, Microsoft YaHei;
 }
 
+::selection {
+    background-color: #ED6B5C;
+    color:white;
+}
+
 #loading {
     position: fixed;
     top: 50%;
@@ -13,15 +18,6 @@ body {
 
 button, input, a {
     outline: none!important;
-}
-
-/*.dropdown-menu>.active>a {
-    background-color: #ED6B5C;
-}*/
-
-::selection {
-    background-color: #ED6B5C;
-    color:white;
 }
 
 /* multi select */
