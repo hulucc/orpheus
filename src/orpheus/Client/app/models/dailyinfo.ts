@@ -1,6 +1,4 @@
-﻿import * as moment from 'moment';
-
-export interface PlanInfo {
+﻿export interface PlanInfo {
     recid: number;
     dailyID: number;
     kishname: string;

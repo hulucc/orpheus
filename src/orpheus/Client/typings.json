@@ -1,11 +1,12 @@
 {
   "globalDependencies": {
-    "core-js": "registry:dt/core-js#0.0.0+20160317120654",
-    "jasmine": "registry:dt/jasmine#2.2.0+20160505161446",
-    "jquery": "registry:dt/jquery#1.10.0+20160417213236",
-    "node": "registry:dt/node#6.0.0+20160613154055"
-  },
-  "dependencies": {
-    "moment": "registry:npm/moment#2.10.5+20160211003958"
+    "bootstrap": "registry:dt/bootstrap#3.3.5+20160619023404",
+    "bootstrap.v3.datetimepicker": "registry:dt/bootstrap.v3.datetimepicker#3.0.0+20160317120654",
+    "core-js": "registry:dt/core-js#0.0.0+20160602141332",
+    "jasmine": "registry:dt/jasmine#2.2.0+20160621224255",
+    "jquery": "registry:dt/jquery#1.10.0+20160620094458",
+    "moment": "registry:dt/moment#2.8.0+20160316155526",
+    "moment-node": "registry:dt/moment-node#2.11.1+20160511043338",
+    "node": "registry:dt/node#6.0.0+20160621231320"
   }
 }

@@ -1,4 +1,4 @@
-import 'reflect-metadata';
+import './polyfills.ts';
 import 'zone.js/dist/zone';
 import './css/site.css';
 import './global.ts';

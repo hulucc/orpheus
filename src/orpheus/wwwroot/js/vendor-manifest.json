@@ -1,5 +1,5 @@
 {
-  "name": "vendor_6855c0d0935639f0ee46",
+  "name": "vendor_7be8484868c221e48fbd",
   "content": {
     "./node_modules/@angular/core/index.js": 1,
     "./node_modules/rxjs/Observable.js": 2,
@@ -737,10 +737,11 @@
     "./node_modules/sha.js/sha256.js": 734,
     "./node_modules/sha.js/sha512.js": 735,
     "./Client/global.ts": 736,
-    "./Client/vendor.ts": 737,
-    "./node_modules/util/support/isBufferBrowser.js": 738,
-    "./node_modules/webpack/buildin/module.js": 739,
-    "./node_modules/zone.js/dist/zone.js": 740,
-    "./": 747
+    "./Client/polyfills.ts": 737,
+    "./Client/vendor.ts": 738,
+    "./node_modules/util/support/isBufferBrowser.js": 739,
+    "./node_modules/webpack/buildin/module.js": 740,
+    "./node_modules/zone.js/dist/zone.js": 741,
+    "./": 748
   }
 }

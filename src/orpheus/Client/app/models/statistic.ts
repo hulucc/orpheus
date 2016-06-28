@@ -1,6 +1,4 @@
-﻿import * as moment from 'moment';
-
-export type StatisticMode = 
+﻿export type StatisticMode = 
     "MonthByDay" |
     "MonthByWeek" |
     "YearByMonth";

@@ -8,7 +8,6 @@ import { StatisticInfoComponent } from '../charts/statistic-info';
 import { StatisticInfoDetailComponent } from '../charts/statistic-info-detail';
 import { Statistic, StatisticDetail, StatisticTrace, StatisticMode } from '../models/statistic';
 import { DailyInfoService } from '../services/dailyinfo'
-import * as moment from 'moment';
 
 @Component({
     template: require('./stat.html'),
@@ -81,8 +80,7 @@ export class StatPageComponent {
     }
 
     onSubmitFinish() {
-        (<any>$("button[type='submit']"))
-            .button('reset');
+        $("button[type='submit']").button('reset');
     }
 
     //private
@@ -94,7 +92,7 @@ export class StatPageComponent {
         this.lineCombination = p.lineCombination ? p.lineCombination === 'true' : false;
         this.detailDisplay = p.detailDisplay ? p.detailDisplay === 'true' : false;
         if(p.mode && p.date && p.lines) {
-            (<any>$("button[type='submit']")).button('loading');
+            $("button[type='submit']").button('loading');
             this.loadStatistics();
         }
     }

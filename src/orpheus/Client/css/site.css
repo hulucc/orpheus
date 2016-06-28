@@ -15,6 +15,15 @@ button, input, a {
     outline: none!important;
 }
 
+/*.dropdown-menu>.active>a {
+    background-color: #ED6B5C;
+}*/
+
+::selection {
+    background-color: #ED6B5C;
+    color:white;
+}
+
 /* multi select */
 .btn-group button {
     text-align: left;

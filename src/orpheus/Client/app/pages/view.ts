@@ -8,7 +8,6 @@ import { LineSelectorComponent } from '../charts/line-selector';
 import { PlanTableComponent } from '../charts/plan'
 import { TimeLineChartComponent } from '../charts/timeline';
 import { TimeLine2ChartComponent } from '../charts/timeline2';
-import * as moment from 'moment';
 
 @Component({
     template: require('./view.html'),
@@ -68,7 +67,7 @@ export class ViewPageComponent {
             this.rshowPlan = this.showPlan;
             this.rshowTimeLine = this.showTimeLine;
             
-            (<any>$("button[type='submit']")).button('loading');
+            $("button[type='submit']").button('loading');
             this.loadDailyInfo();
         }
     }
@@ -112,6 +111,6 @@ export class ViewPageComponent {
 
     onSubmitComplete() {
         this.showResult = true;
-        (<any>$("button[type='submit']")).button('reset');
+        $("button[type='submit']").button('reset');
     }
 }

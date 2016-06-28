@@ -1,5 +1,4 @@
 import { Component, Input, Output, EventEmitter, ElementRef } from '@angular/core';
-import * as moment from 'moment';
 
 @Component({
     selector: 'date-picker',
@@ -8,14 +7,15 @@ import * as moment from 'moment';
 
 export class DatePickerComponent {
 
+    viewInit: boolean = false; 
     private _dateFormat: string;
     @Input() set dateFormat(format: string){
-        this._dateFormat = format;
-        let dp = $(this.el.nativeElement)
+        let dp: any = $(this.el.nativeElement)
             .find('.input-group')
             .data('DateTimePicker')
-        if(dp)
-            dp.format(this._dateFormat);
+        if(this.viewInit)
+            dp.format(format);
+        this._dateFormat = format;
     }
     get dateFormat(): string {
         return this._dateFormat;
@@ -30,13 +30,15 @@ export class DatePickerComponent {
     }
 
     ngAfterViewInit() {
-        (<any>$(this.el.nativeElement))
+        $(this.el.nativeElement)
             .children('.input-group')
             .datetimepicker({
                 format: this.dateFormat,
                 locale: 'zh-cn',
             })
             .on('dp.change', (e) => this.onDateChange(e.date));
+
+        this.viewInit = true;
     }
 
     //private

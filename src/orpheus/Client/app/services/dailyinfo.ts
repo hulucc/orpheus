@@ -4,7 +4,6 @@ import { Http, URLSearchParams, Response } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import { DailyInfo, Dict } from '../models/dailyinfo';
 import { Statistic, StatisticMode } from '../models/statistic'
-import * as moment from 'moment';
 
 @Injectable()
 export class DailyInfoService {

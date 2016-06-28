@@ -1,7 +1,6 @@
 ﻿import { Component, Input, ViewChild, ElementRef } from '@angular/core';
 import { DailyInfo, TimeLine, Dict } from '../models/dailyinfo'
 import { PopoverDirective } from './timeline-popover'
-import * as moment from 'moment';
 
 @Component({
     selector: 'timeline2-chart',
