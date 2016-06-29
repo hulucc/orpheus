@@ -41,8 +41,7 @@ export class ViewPageComponent {
     constructor(
         private router: Router,
         private routerData: RouterDataService,
-        private dailyInfoSvc: DailyInfoService
-        ) {
+        private dailyInfoSvc: DailyInfoService) {
         this.routerData.title.next('作业日报查看');
         this.routerData.icon.next('glyphicon-search');
     }
@@ -96,7 +95,7 @@ export class ViewPageComponent {
             date: isoDate,
             plan: String(this.showPlan),
             tl: String(this.showTimeLine) };
-        this.router.navigate(['/View'], {queryParams: params});
+        this.router.navigate(['/view'], {queryParams: params});
     }
 
     onSubmitSuccess(line: string, dailys: DailyInfo[]) {

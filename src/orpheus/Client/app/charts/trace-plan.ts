@@ -1,5 +1,5 @@
 ﻿import { Component, Input } from '@angular/core'
-import { PlanInfoEx } from '../models/trace'
+import { PlanInfoTrace } from '../models/trace'
 
 @Component({
     selector: 'trace-plan',
@@ -7,7 +7,7 @@ import { PlanInfoEx } from '../models/trace'
     styles: [require('./trace-plan.css')],
 })
 export class TracePlanComponent {
-    @Input() plans: PlanInfoEx[] = [];
+    @Input() plans: PlanInfoTrace[] = [];
 
     //private
     private plus(sLotUncomp, append) {

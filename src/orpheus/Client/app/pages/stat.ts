@@ -63,7 +63,7 @@ export class StatPageComponent {
             lineCombination: String(this.lineCombination),
             detailDisplay: String(this.detailDisplay),
         };
-        this.router.navigate(['/Stat'], {queryParams: params});
+        this.router.navigate(['/stat'], {queryParams: params});
     }
 
     onSubmitSuccess(line: string, stats: Statistic[]) {

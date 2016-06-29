@@ -1,5 +1,5 @@
 ﻿import { Component, Input } from '@angular/core'
-import { TimeLineEx } from '../models/trace'
+import { TimeLineTrace } from '../models/trace'
 import { HelperService } from '../services/helper'
 
 
@@ -9,7 +9,7 @@ import { HelperService } from '../services/helper'
     styles: [require('./trace-timeline.css')],
 })
 export class TracePlanComponent {
-    @Input() timelines: TimeLineEx[] = [];
+    @Input() timelines: TimeLineTrace[] = [];
 
     constructor(private helper: HelperService) {}
 }

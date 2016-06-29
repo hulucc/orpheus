@@ -1,9 +1,10 @@
 ﻿import { PlanInfo, TimeLine } from './dailyinfo'
 
-export interface PlanInfoEx extends PlanInfo {
+export interface PlanInfoTrace extends PlanInfo {
     tact: number;
+    isTrial: boolean;
 }
 
-export interface TimeLineEx extends TimeLine {
+export interface TimeLineTrace extends TimeLine {
 
 }

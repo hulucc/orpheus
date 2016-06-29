@@ -4,6 +4,7 @@ import { Http, URLSearchParams, Response } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import { DailyInfo, Dict } from '../models/dailyinfo';
 import { Statistic, StatisticMode } from '../models/statistic'
+import { PlanInfoTrace, TimeLineTrace } from '../models/trace'
 
 @Injectable()
 export class DailyInfoService {
@@ -55,6 +56,26 @@ export class DailyInfoService {
         let option = { search: params };
         return this.http.get('/api/dailyinfo/statistic', option)
         .map(r => <Statistic[]>r.json())
+        //.do(d => console.log(d))
+        .catch(this.onError);
+    }
+
+    getPlanInfoTrace(ids: number[]|string[]): Observable<PlanInfoTrace> {
+        let params = new URLSearchParams();
+        params.set('id', ids.join(','))
+        let option = { search: params };
+        return this.http.get('/api/dailyinfo/planinfo', option)
+        .map(r => <PlanInfoTrace[]>r.json())
+        //.do(d => console.log(d))
+        .catch(this.onError);
+    }
+
+    getTimeLineTrace(ids: number[]): Observable<TimeLineTrace> {
+        let params = new URLSearchParams();
+        params.set('id', ids.join(','))
+        let option = { search: params };
+        return this.http.get('/api/dailyinfo/timeline', option)
+        .map(r => <TimeLineTrace[]>r.json())
         //.do(d => console.log(d))
         .catch(this.onError);
     }
