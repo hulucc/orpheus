@@ -10,8 +10,8 @@ export const routes: RouterConfig = [
     { path: 'view', component: ViewPageComponent },
     { path: 'stat', component: StatPageComponent },
     { path: 'about', component: AboutPageComponent },
-    { path: 'trace/plan', component: PlanInfoTracePageComponent },
-    { path: 'trace/tl', component: TimeLineTracePageComponent },
+    { path: 'trace/plan/:id', component: PlanInfoTracePageComponent },
+    { path: 'trace/tl/:id', component: TimeLineTracePageComponent },
     { path: 'test', component: TestComponent},
     { path: 'test/:id', component: TestComponent },
     { path: 'test1', component: Test1Component },
@@ -20,5 +20,5 @@ export const routes: RouterConfig = [
 ];
 
 export const APP_ROUTER_PROVIDERS = [
-    provideRouter(routes)
+    provideRouter(routes, { enableTracing: true })
 ];
