@@ -31,7 +31,7 @@
                 <td>{{stat.waiting}}</td>
                 <td>{{stat.effectiveTime}}</td>
                 <td>{{stat.actualTime}}</td>
-                <td>{{round(stat.theoreticalTime)}}</td>
+                <td><a [routerLink]="['/trace/plan', trace(stat, 'theoreticalTime')]">{{round(stat.theoreticalTime)}}</a></td>
                 <td>{{stat.productivity | percent:'1.0-2'}}</td>
                 <td>{{stat.machineActivation | percent:'1.0-2'}}</td>
             </tr>

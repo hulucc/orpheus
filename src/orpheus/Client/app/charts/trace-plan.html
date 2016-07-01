@@ -2,10 +2,11 @@
     <table class="table">
         <thead>
             <tr>
+                <th>类型</th>
                 <th>机种</th>
                 <th>基板</th>
                 <th>Lot</th>
-                <th>小分Lot</th>
+                <th>小分</th>
                 <th>面</th>
                 <th>计划数</th>
                 <th>前日累计</th>
@@ -18,18 +19,19 @@
         </thead>
         <tbody>
             <tr *ngFor="let plan of plans">
-                <th>{{plan.kishname}}</th>
-                <th>{{plan.kibaname}}</th>
-                <th>{{plan.lot}}</th>
-                <th>{{plan.slot}}</th>
-                <th>{{plan.koutei}}</th>
-                <th>{{plus(plan.sLotUncomp, plan.append)}}</th>
-                <th>{{plan.lotComp}}</th>
-                <th>{{plan.shiftComp}}</th>
-                <th>{{plan.tact}}</th>
-                <th>{{plan.lotCompAfter}}</th>
-                <th>{{plan.joc}}</th>
-                <th>{{plan.remark}}</th>
+                <td>{{plan.isTrial? '试作': '量产'}}</td>
+                <td>{{plan.kishname}}</td>
+                <td>{{plan.kibaname}}</td>
+                <td>{{plan.lot}}</td>
+                <td>{{plan.sLot}}</td>
+                <td>{{plan.koutei}}</td>
+                <td>{{helper.plus(plan.sLotUncomp, plan.append)}}</td>
+                <td>{{plan.lotComp}}</td>
+                <td>{{plan.shiftComp}}</td>
+                <td>{{plan.tact}}</td>
+                <td>{{plan.lotCompAfter}}</td>
+                <td>{{plan.joc}}</td>
+                <td>{{plan.remark}}</td>
             </tr>
         </tbody>
     </table>

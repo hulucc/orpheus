@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
-import { ROUTER_DIRECTIVES } from '@angular/router';
+import { Component, ApplicationRef } from '@angular/core';
+import { ROUTER_DIRECTIVES, Router, NavigationStart } from '@angular/router';
 import { RouterDataService } from './services/router-data';
 import { HelperService } from './services/helper';
+import { DailyInfoService } from './services/dailyinfo'
 import { ViewPageComponent } from './pages/view';
 import { StatPageComponent } from './pages/stat';
 import { AboutPageComponent } from './pages/about';
@@ -18,7 +19,7 @@ import { TestComponent, Test1Component } from './test/test';
         AboutPageComponent,
         TestComponent, 
         Test1Component], 
-    providers: [RouterDataService, HelperService]
+    providers: [RouterDataService, HelperService, DailyInfoService]
 })
 export class AppComponent {
 
@@ -28,9 +29,21 @@ export class AppComponent {
     navVisible: boolean = false;
 
     constructor(
-        private routerData: RouterDataService
-        ) {
+        private router: Router,
+        private appRef: ApplicationRef,
+        private routerData: RouterDataService) {
         this.routerData.title.subscribe(d => this.pageTitle = d);
         this.routerData.icon.subscribe(d => this.pageIcon = d);
+        //for ie history back bug
+        this.router.events.subscribe(e => {
+            if(e instanceof NavigationStart) {
+                if(Object.prototype.toString.call((<any>window).HTMLElement).indexOf('Constructor') > 0 
+                    || !!(<any>document).documentMode) {
+                    this.appRef.zone.run(() => this.appRef.tick());
+                }
+            }
+            
+        });
+        
     }
 }

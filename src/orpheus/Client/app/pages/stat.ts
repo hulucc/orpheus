@@ -18,7 +18,6 @@ import { DailyInfoService } from '../services/dailyinfo'
         LineSelectorComponent,
         StatisticInfoComponent,
         StatisticInfoDetailComponent],
-    providers: [DailyInfoService]
 })
 export class StatPageComponent {
     
@@ -52,7 +51,8 @@ export class StatPageComponent {
             .subscribe(ps => this.loadQueryParams(ps));
     }
     ngOnDestroy() {
-        this.sub.unsubscribe();
+        if(this.sub)
+            this.sub.unsubscribe();
     }
 
     onSubmit() {

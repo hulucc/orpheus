@@ -8,7 +8,8 @@ import { PlanInfoTrace, TimeLineTrace } from '../models/trace'
 
 @Injectable()
 export class DailyInfoService {
-    constructor(private http: Http) {}
+    constructor(private http: Http) {
+    }
 
     private dateParse(key, value) {
         let datetimeFormat = /^(\d{4})\/(\d{2})\/(\d{2})( (\d{2}):(\d{2}):(\d{2}))?$/;
@@ -57,10 +58,11 @@ export class DailyInfoService {
         return this.http.get('/api/dailyinfo/statistic', option)
         .map(r => <Statistic[]>r.json())
         //.do(d => console.log(d))
-        .catch(this.onError);
+        .catch(this.onError)
+        ;
     }
 
-    getPlanInfoTrace(ids: number[]|string[]): Observable<PlanInfoTrace> {
+    getPlanInfoTrace(ids: number[]|string[]): Observable<PlanInfoTrace[]> {
         let params = new URLSearchParams();
         params.set('id', ids.join(','))
         let option = { search: params };
@@ -70,7 +72,7 @@ export class DailyInfoService {
         .catch(this.onError);
     }
 
-    getTimeLineTrace(ids: number[]): Observable<TimeLineTrace> {
+    getTimeLineTrace(ids: number[]): Observable<TimeLineTrace[]> {
         let params = new URLSearchParams();
         params.set('id', ids.join(','))
         let option = { search: params };

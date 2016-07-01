@@ -18,7 +18,6 @@ import { TimeLine2ChartComponent } from '../charts/timeline2';
         PlanTableComponent, 
         TimeLineChartComponent, 
         TimeLine2ChartComponent],
-    providers: [DailyInfoService]
 })
 export class ViewPageComponent {
 
@@ -51,7 +50,8 @@ export class ViewPageComponent {
             .subscribe(ps => this.loadQueryParams(ps));
     }
     ngOnDestory() {
-        this.sub.unsubscribe();
+        if(this.sub)
+            this.sub.unsubscribe();
     }
 
     //private funcitons

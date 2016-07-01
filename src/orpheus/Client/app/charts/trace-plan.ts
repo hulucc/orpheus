@@ -1,5 +1,6 @@
 ﻿import { Component, Input } from '@angular/core'
 import { PlanInfoTrace } from '../models/trace'
+import { HelperService } from '../services/helper'
 
 @Component({
     selector: 'trace-plan',
@@ -9,14 +10,6 @@ import { PlanInfoTrace } from '../models/trace'
 export class TracePlanComponent {
     @Input() plans: PlanInfoTrace[] = [];
 
-    //private
-    private plus(sLotUncomp, append) {
-        if(append == 0) {
-            return sLotUncomp;
-        } else if (append > 0) {
-            return sLotUncomp + ' + ' + append;
-        } else if (append < 0) {
-            return sLotUncomp + ' - ' + Math.abs(append);
-        }
+    constructor(private helper: HelperService) {
     }
 }
