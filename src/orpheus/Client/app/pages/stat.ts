@@ -68,7 +68,6 @@ export class StatPageComponent {
 
     onSubmitSuccess(line: string, stats: Statistic[]) {
         //this.rlines.push(line);
-        console.log(this.statistics);
         this.statistics[line] = stats;
         this.onSubmitFinish();
     }

@@ -19,7 +19,12 @@ import { TestComponent, Test1Component } from './test/test';
         AboutPageComponent,
         TestComponent, 
         Test1Component], 
-    providers: [RouterDataService, HelperService, DailyInfoService]
+    providers: [RouterDataService, HelperService, DailyInfoService],
+    precompile: [
+        ViewPageComponent, 
+        StatPageComponent, 
+        AboutPageComponent,
+    ],
 })
 export class AppComponent {
 
