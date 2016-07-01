@@ -56,6 +56,7 @@ namespace orpheus
             services.AddScoped<DailyIteratorService>();
             services.AddScoped<StatisticService>();
             services.AddScoped<TraceService>();
+            services.AddMemoryCache();
             services.AddMvc().AddJsonOptions(o =>
             {
                 o.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();

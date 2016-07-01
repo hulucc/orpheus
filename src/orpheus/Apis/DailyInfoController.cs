@@ -8,6 +8,8 @@ using orpheus.Core.Interface;
 using System.Text.RegularExpressions;
 using orpheus.Core;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
+using System.Reflection;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -20,13 +22,16 @@ namespace orpheus.Apis
         private readonly DailyIteratorService m_dailyIter;
         private readonly StatisticService m_statistic;
         private readonly TraceService m_trace;
+        private readonly IMemoryCache m_memCache;
 
         public DailyInfoController(
+            IMemoryCache memCache,
             IDailyRepository dailyRepo,
             DailyIteratorService dailyIter,
             StatisticService statistic,
             TraceService trace)
         {
+            m_memCache = memCache;
             m_dailyRepo = dailyRepo;
             m_dailyIter = dailyIter;
             m_statistic = statistic;
@@ -78,25 +83,32 @@ namespace orpheus.Apis
             [FromQuery]string date,
             [FromQuery]string lines)
         {
-            var parseDate = ParseDate(date);
-            if (parseDate == DateTime.MinValue)
+            List<PspStatistic> stats = null;
+            //cache
+            //var key = this.Url;
+            //var opts = new MemoryCacheEntryOptions()
+            //    .SetSlidingExpiration(TimeSpan.FromMinutes(5))
+            //    .SetAbsoluteExpiration(TimeSpan.FromHours(1));
+            //if(m_memCache.try)
+
+
+            var pdate = ParseDate(date);
+            if (pdate == DateTime.MinValue)
                 return BadRequest();
-            var lineCollection = lines.Split(',').Select(l => l.Trim());
-            if (lineCollection.Any(l => !CheckLine(l)))
+            var plines = lines.Split(',').Select(l => l.Trim());
+            if (plines.Any(l => !CheckLine(l)))
                 return BadRequest();
-            List<IEnumerable<PspDailyInfo>> dailyGroup;
-            if (type.Equals("MonthByDay", StringComparison.OrdinalIgnoreCase))
-                dailyGroup = m_dailyIter.MonthByDay(parseDate, lineCollection);
-            else if (type.Equals("MonthByWeek", StringComparison.OrdinalIgnoreCase))
-                dailyGroup = m_dailyIter.MonthByWeek(parseDate, lineCollection);
-            else if (type.Equals("YearByMonth", StringComparison.OrdinalIgnoreCase))
-                dailyGroup = m_dailyIter.YearByMonth(parseDate, lineCollection);
-            else
+            var bindingFlag = BindingFlags.IgnoreCase | BindingFlags.Instance | BindingFlags.Public;
+            var iter = m_dailyIter.GetType().GetMethod(type, bindingFlag);
+            if (iter == null)
                 return BadRequest();
-            var statisticCollection = dailyGroup
+            var dailyGroup = iter
+                .Invoke(m_dailyIter, new object[] { pdate, plines }) 
+                as List<IEnumerable<PspDailyInfo>>;
+            stats = dailyGroup
                 .Select(dailys => m_statistic.Summarize(dailys))
                 .ToList();
-            return Json(statisticCollection);
+            return Json(stats);
         }
 
         [HttpGet("planinfo")]
